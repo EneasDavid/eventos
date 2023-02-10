@@ -87,7 +87,7 @@
       </hr><hr>
       <div class="mb-3 row">
            <div class="col-md-5 mb-4">
-            <input type="text" class="form-control" id="cep" placeholder="Digite seu CEP *"  name="cep" maxlength="8" minlength="8" data-cep>
+            <input type="text" class="form-control" id="cep" placeholder="Digite seu CEP *"  name="cep" maxlength="9" minlength="8" data-cep>
           </div>
           <div class="col-md-5 mb-4">
             <input type="text" class="form-control" id="rua" placeholder="Rua *" name="rua" readonly >

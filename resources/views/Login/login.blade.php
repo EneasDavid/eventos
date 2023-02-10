@@ -31,7 +31,12 @@
     </div>
   </nav>
   <div class="container col-md-6 form-container ">
-  <h1 class="col-md-8 m-auto" style="width: max-content;">Login</h1>
+</br>
+</br>
+</br>
+</br>
+</br>
+   <h1 class="col-md-8 m-auto" style="width: max-content;">Login</h1>
    <div class="col-md-8 m-auto">
       @if ($errors->any())
           <div>
@@ -51,6 +56,7 @@
         </div>
       @endif 
    </div>
+</br>
     <form class="col-md-8 m-auto" action="{{route('login.login')}}" method="post">
       @csrf
       <div class="mb-3">

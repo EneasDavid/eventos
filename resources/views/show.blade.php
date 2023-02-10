@@ -61,12 +61,7 @@
         <span class="font" style="display: flex;justify-content: space-around;">{{$event->nomeEvento}} - {{$semanaD[date('l', strtotime($event->date))]}}, {{date('d/m/y', strtotime($event->date))}}</span>
         <hr></hr>
         <p class="m-0"><b>{{$event->cidade}} - {{$event->uf}}</b></p>
-        <p>às {{date('h:m', strtotime($event->date))}} Hrs</p>
-        @if ($event->privado)
-        <p><b>O evento é </b>Privado</p>
-        @else
-        <p><b>O evento é </b>Publico</p>
-        @endif
+        <p>às {{date('h:i', strtotime($event->time))}} Hrs</p>
         <hr></hr>
         <span class="font">Descrição do Evento</span>
         <div style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;"> 

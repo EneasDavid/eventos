@@ -75,7 +75,7 @@ class EventController extends Controller
             $usuarios->password=Hash::make($request->password);
             $usuarios->dataNascimento=$request->dataNascimento;
             $usuarios->telefone=$request->telefone;
-            $usuarios->cep=$request->cep;
+            $usuarios->cep=str_replace("-","",$request->cep);
             $usuarios->rua=$request->rua;
             $usuarios->numeroCasa=$request->numeroCasa;
             $usuarios->complemento=$request->complemento;
@@ -112,7 +112,7 @@ class EventController extends Controller
                 'rua'=>'required',
                 'nomeEvento'=>'required',
                 'descricao'=>'required',
-                'privado'=>'required',
+                'time'=>'required',
                 'date'=>'required',
             ],[
                 'required'=>'Os campos marcados com * são obriatorios!']);
@@ -125,9 +125,9 @@ class EventController extends Controller
             $event->uf=$request->uf;
             $event->complemento=$request->complemento;
             $event->descricao=$request->descricao;
-            $event->privado=$request->privado;
             $event->items=$request->items;
             $event->date=$request->date;
+            $event->time=$request->time;
             //Upload de imagem
             if($request->hasfile('imagem') && $request->file('imagem')->isValid()){
                 $requestImagem=$request->imagem;

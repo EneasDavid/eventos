@@ -77,13 +77,9 @@
            <input  class="form-control" type="date" name="date" id="date" value="{{$event->date->format('Y-m-d')}}">
         </div>
         <div class="col-md-6 mb-4">
-        <label for="date"></label>
-           <select name="privado" id="privado" class="form-select form-control">
-             <option selected disabled value="">O evento é privado *</option>
-             <option value="0" {{$event->privado==0?"selected='selected'":""}}>Público</option>
-             <option value="1" {{$event->privado==1?"selected='selected'":""}}>Privado</option>
-            </select>           
-        </div>
+        <label for="date">Horario do evento *</label>
+          <input class="form-control" type="time" id="appt" name="time" smin="00:01" max="23:59" value="{{$event->time}}">          
+        </div>          
       </div>
       </hr><hr>
       <div class="mb-3 row">

@@ -96,7 +96,7 @@
                 </div>
                 @endif
                 <div class="p-2 d-flex flex-column  align-items-center border border-secondary rounded" style="position: relative !important;background: white;@php if(isset($event->imagem)) echo 'margin-top: -10px;' @endphp">
-                    <p class="estiloFont"><b>{{$event->cidade}} ° {{date('d/m/y', strtotime($event->date))}} > {{date('h:m', strtotime($event->date))}}</b></p>
+                    <p class="estiloFont"><b>{{$event->cidade}} ° {{date('d/m/y', strtotime($event->date))}} > {{date('h:m', strtotime($event->time))}}</b></p>
                     <p class="estiloFont" class="truncate-1l" style="display: flex;justify-content: space-around;" ><b>{{$event->nomeEvento}}</b></p>
                 </div>
             </div>

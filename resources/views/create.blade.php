@@ -53,6 +53,11 @@
         </nav>
       <h1 class="col-md-8 m-auto" style="width: max-content;">Criar</h1>
       <div id="event-create-conteiner" class="col-md-6 offset-md-3">
+        @if (session('msg'))
+        <div class="alert alert-danger">
+          {{ session('msg') }}
+        </div>
+        @endif
         <h1>Crie seu evento</h1>
         <form action="/events" method="POST" enctype="multipart/form-data">
           @csrf
@@ -73,12 +78,8 @@
            <input  class="form-control" type="date" name="date" id="date">
         </div>
         <div class="col-md-6 mb-4">
-        <label for="date"></label>
-           <select name="privado" id="privado" class="form-select form-control">
-             <option selected disabled value="">O evento é privado *</option>
-             <option value="0">Público</option>
-             <option value="1">Privado</option>
-            </select>           
+        <label for="date">Horario do evento *</label>
+          <input class="form-control" type="time" id="appt" name="time" smin="00:01" max="23:59" required>          
         </div>
       </div>
       </hr><hr>

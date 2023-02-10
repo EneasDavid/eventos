@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('uf');
             $table->text('complemento')->nullable();
             $table->text('descricao');
-            $table->boolean('privado');
+            $table->time('time');
             $table->String('imagem')->nullable();
             $table->json('items')->nullable();
             $table->dateTime('date');
