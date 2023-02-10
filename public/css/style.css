@@ -69,6 +69,13 @@ ul li a{
   max-height: 20rem;
   min-height: 15rem;
 }
+.fotoPerfil {
+  object-fit: cover;
+  border-radius:100%;
+}
+#picture__input{
+  display:none;
+}
 .event-image {
   position: absolute;
   top: 0;

@@ -20,19 +20,41 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="float:right">
-        <!--LINKS-->
+        @auth
+        {{--auth serve pra mostrar coisas pra quem tá logado--}}
+        <li class="nav-item active">
+          <a class="nav-link" href="/dashboard">Meus eventos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/create">Criar eventos</a>
+        </li>
+        <li class="nav-item">
+          <form action="/logout" method="post">
+            @csrf
+            <a class="nav-link" href="/" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
+            {{--closest('form') fecha o formulario mais perto--}}
+          </form>
+        </li>
+        @endauth
+        @guest
+        {{--guest serve pra mostrar coisas pra pessoas não logadas--}}
         <li class="nav-item">
           <a class="nav-link" href="/login">logar</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/register">cadastrar</a>
         </li>
+        @endguest
       </ul>       
     </div>
   </nav>
   <div class="m-auto container col-md-6 form-container ">
-   <h1 class="col-md-8 m-auto" style="width: max-content;">Cadastro de Usuario</h1>
-   <div class="col-md-8 m-auto">
+    @if(empty($user))
+    <h1 class="col-md-8 m-auto" style="width: max-content;">Cadastro de Usuario</h1>
+    @else
+    <h1 class="col-md-8 m-auto" style="width: max-content;">Atualização de Usuario</h1>
+    @endif
+    <div class="col-md-8 m-auto">
       @if ($errors->any())
           <div>
             <div class="alert alert-danger">
@@ -50,20 +72,25 @@
           {{ session('danger') }}
         </div>
       @endif 
-   </div>
-    <form class="col-md-8 m-auto" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
+   </div>  
+   @if(empty($user))
+     <form class="col-md-8 m-auto" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
+   @else
+     <form class="col-md-8 m-auto" action="/update?id={{$user->id}}" enctype="multipart/form-data" method="POST">
+   @endif
       @csrf
       </hr><hr>
       <div class="mb-3">
         <label for="imagem">Foto do usuario</label>
-        <input type="file" class="form-controll-file" id="imagem" name="foto" >
+        <input type="file" class="form-controll-file" id="imagem" name="foto" value='{{!empty($user)?"$user->foto":""}}'>
       </div>      
       <div class="mb-3">
-         <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="Digite seu nome:*" >
+         <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="Digite seu nome:*" value='{{!empty($user)?"$user->name":""}}'>
       </div>      
       <div class="mb-3">
-         <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="E-mail:*" >
+         <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="E-mail:*" value='{{!empty($user)?"$user->email":""}}'>
       </div>
+      @if(empty($user))
       <div class="mb-3">
          <input type="email" class="form-control" name="Confirme_email" placeholder="Confirme seu E-mail:*" >
       </div>
@@ -72,44 +99,45 @@
           <input type="password" class="form-control" name="password" placeholder="Senha:*" >
         </div>
         <div class="col-md-6 mb-3">
-           <input type="password" class="form-control" name="Confirme_password" placeholder="Confirme sua senha:*" >
+          <input type="password" class="form-control" name="Confirme_password" placeholder="Confirme sua senha:*" >
         </div>
       </div>
+      @endif
       </hr><hr>
       <div class="mb-3 row">
         <div class="col-md-6">
-          <input type="tel" class="mb-3 form-control" name="telefone"  placeholder="(xx) xxxxx-xxxx*">
+          <input type="tel" class="mb-3 form-control" name="telefone"  placeholder="(xx) xxxxx-xxxx*" value='{{!empty($user)?"$user->telefone":""}}'>
         </div>
         <div class="col-md-6">
-          <input type="date" class="mb-3 form-control" name="dataNascimento" >
+          <input type="date" class="mb-3 form-control" id="date" name="dataNascimento"  value='{{!empty($user)?"$user->dataNascimento":""}}'>
         </div>
       </div>
       </hr><hr>
       <div class="mb-3 row">
            <div class="col-md-5 mb-4">
-            <input type="text" class="form-control" id="cep" placeholder="Digite seu CEP *"  name="cep" maxlength="9" minlength="8" data-cep>
+            <input type="text" class="form-control" id="cep" placeholder="Digite seu CEP *"  name="cep" maxlength="9" minlength="8" data-cep value='{{!empty($user)?"$user->cep":""}}'>
           </div>
           <div class="col-md-5 mb-4">
-            <input type="text" class="form-control" id="rua" placeholder="Rua *" name="rua" readonly >
+            <input type="text" class="form-control" id="rua" placeholder="Rua *" name="rua" readonly value='{{!empty($user)?"$user->rua":""}}'>
           </div>
           <div class="col-md-2 mb-4">
-            <input type="text" class="form-control" id="numero" placeholder="Nº *" name="numeroCasa" >
+            <input type="text" class="form-control" id="numero" placeholder="Nº *" name="numeroCasa" value='{{!empty($user)?"$user->numeroCasa":""}}' >
           </div>
           <div class="col-md-4 mb-4">
-            <input type="text" class="form-control" id="bairro" placeholder="Bairro *" name="bairro" readonly >
+            <input type="text" class="form-control" id="bairro" placeholder="Bairro *" name="bairro" readonly value='{{!empty($user)?"$user->bairro":""}}'>
           </div>
           <div class="col-md-4 mb-4">
-            <input type="text" class="form-control" id="cidade" placeholder="Cidade *" name="cidade" readonly >
+            <input type="text" class="form-control" id="cidade" placeholder="Cidade *" name="cidade" readonly value='{{!empty($user)?"$user->cidade":""}}'>
           </div>
           <div class="col-md-4 mb-4">
-            <input type="text" class="form-control" id="uf" name="uf" name="uf" placeholder="Estado *" readonly >
+            <input type="text" class="form-control" id="uf" name="uf" name="uf" placeholder="Estado *" readonly value='{{!empty($user)?"$user->uf":""}}'>
           </div>
           <div class="col-md-12 mb-4">
-            <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento">
+            <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento" value='{{!empty($user)?"$user->complemento":""}}'>
           </div>
       </div>
     <div class="p-2 bd-highlight" style="float:right">
-      <button class="btn btn-primary mb-3" type="submit">Cadastra-se</button>
+      <button class="btn btn-primary mb-3" type="submit">{{!empty($user)?"Atualizar":"Cadastra-se"}}</button>
     </div>
     </form>
 

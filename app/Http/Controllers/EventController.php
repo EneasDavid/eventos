@@ -87,7 +87,7 @@ class EventController extends Controller
                 //Pega a imagem
                 $extension=$requestImagem->extension();
                 //pega a extensão
-                $imagemName=md5($requestImagem->getClientOriginalName().strtotime("now").".".$extension);
+                $imagemName=md5($requestImagem->getClientOriginalName().strtotime("now")).".".$extension;
                 //cria o nome da imagem
                 $request->foto->move(public_path('img/usuarios'),$imagemName);
                 //salva no bd
@@ -98,6 +98,55 @@ class EventController extends Controller
         }
         
     //cadastro usuario
+    //atualizar usuario
+        public function editarUsuario($id){
+            $user=user::findOrFail($id);    
+            return view('Login.register',['user'=>$user]);
+        }
+        public function editarUsuarioForms(Request $request){
+            $this->validate($request,[
+                'name'=>'required',
+                'email'=>'required',
+                'dataNascimento'=>'required',
+                'telefone'=>'required',
+                'cep'=>'required',
+                'rua'=>'required',
+                'numeroCasa'=>'required',
+            ],[
+                'required' => 'Os campos marcados com * são obrigartorios!',
+            ]);
+            $user=user::findOrFail($_GET['id']);
+            if($request->hasfile('foto') && $request->file('foto')->isValid()){
+                $requestImagem=$request->foto;
+                //Pega a imagem
+                $extension=$requestImagem->extension();
+                //pega a extensão
+                $imagemName=md5($requestImagem->getClientOriginalName().strtotime("now")).".".$extension;
+                //cria o nome da imagem
+                $request->foto->move(public_path('img/usuarios'),$imagemName);
+                //salva no bd
+                $imgFoto=$imagemName;
+            }else{
+                $imgFoto=$user->foto;
+            }
+            $user->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'dataNascimento'=>$request->dataNascimento,
+                'telefone'=>$request->telefone,
+                'cep'=>str_replace("-","",$request->cep),
+                'rua'=>$request->rua,
+                'numeroCasa'=>$request->numeroCasa,
+                'complemento'=>$request->complemento,
+                'bairro'=>$request->bairro,
+                'cidade'=>$request->cidade,
+                'uf'=>$request->uf,
+                'foto'=>$imgFoto
+            ]);
+            return redirect('/dashboard');
+        }
+        
+    //atualizar usuario
     
         public function create(){
             return view('create');
@@ -134,7 +183,7 @@ class EventController extends Controller
                 //Pega a imagem
                 $extension=$requestImagem->extension();
                 //pega a extensão
-                $imagemName=md5($requestImagem->getClientOriginalName().strtotime("now").".".$extension);
+                $imagemName=md5($requestImagem->getClientOriginalName().strtotime("now")).".".$extension;
                 //cria o nome da imagem
                 $request->imagem->move(public_path('img/events'),$imagemName);
                 //salva no bd
@@ -195,7 +244,7 @@ class EventController extends Controller
             $events=$user->events;
             $eventAsParticipant=$user->eventAsParticipant;
 
-            return view('dashboard',['events'=>$events,'eventasparticipant'=>$eventAsParticipant]);
+            return view('dashboard',['user'=>$user,'events'=>$events,'eventasparticipant'=>$eventAsParticipant]);
         }
 
         public function deletar($id){

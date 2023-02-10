@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('uf');
             $table->unsignedBigInteger('numeroCasa');
             $table->string('complemento')->nullable();
-            $table->dateTime('dataNascimento');
+            $table->date('dataNascimento');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -17,6 +17,10 @@ use App\Http\Controllers\EventController;
     Route::get('/register', [EventController::class, 'register'])->name('register'); 
     Route::POST('/Forms-register', [EventController::class, 'registerForms'])->name('register');
 //cadastro de usuario
+//Editar usuario
+    Route::get('/editarUsuario/{id}', [EventController::class, 'editarUsuario']); 
+    Route::POST('/update', [EventController::class, 'editarUsuarioForms']);
+//Editar  usuario
 //Listagem e informação de evento
     //PUBLICO
         Route::get('/', [EventController::class, 'event']);
