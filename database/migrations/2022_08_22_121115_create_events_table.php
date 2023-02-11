@@ -25,8 +25,11 @@ return new class extends Migration
             $table->text('complemento')->nullable();
             $table->text('descricao');
             $table->time('time');
-            $table->String('imagem')->nullable();
+            $table->String('imagem');
+            $table->unsignedBigInteger('integranteQuantidade')->nullable();
+            $table->unsignedBigInteger('integranteQuantidadePreenchidas')->nullable();
             $table->json('items')->nullable();
+            $table->boolean('finalizada');
             $table->dateTime('date');
         });
     }

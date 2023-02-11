@@ -67,11 +67,14 @@
         <div class="mb-3 row">
           <label for="date"><strong>Dados do Evento</strong></label>
           <div class="col-md-12 mb-4">
-            <label for="imagem">Foto do evento</label>
+            <label for="imagem">Foto do evento*</label>
             <input type="file" class="form-control-file" id="imagem" name="imagem" >
         </div>
-        <div class="col-md-12 mb-4">
+        <div class="col-md-8 mb-4">
           <input type="text" class="form-control" id="title" name="nomeEvento" placeholder="Digite o nome do evento *">
+        </div>
+        <div class="col-md-4 mb-4">
+          <input type="number" step="0" min="1" class="form-control" id="title" name="quantidadeP" placeholder="Quantidade de participantes">
         </div>
         <div class="col-md-6 mb-4">
            <label for="date">Data do evento *</label>

@@ -90,22 +90,27 @@
                             <th scope="row">{{$event->id}}</th>
                             <th scope="row"><a href="/event/{{$event->id}}">{{$event->nomeEvento}}</a></th>
                             <th scope="row">{{count($event->users)}}</th>
-                            <th scope="row" ><a href="/event/edit/{{$event->id}}">Editar</a> |
-                            <a class="btn btn-infoedit-btn" href="/event/{{$event->id}}">
-                                <form action="/event/{{$event->id}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger delete-btn">Deletar</button>
-                                </form>
-                            </a>
+                            @if(!$event->finalizada)
+                            <th scope="row" >
+                                <a href="/event/edit/{{$event->id}}">Editar</a> |
+                                <a class="btn btn-infoedit-btn" href="/event/{{$event->id}}">
+                                    <form action="/event/{{$event->id}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger delete-btn">Deletar</button>
+                                    </form>
+                                </a> |
+                            <a href="/event/end/{{$event->id}}"> Finalizar</a> 
                         </th>
+                        @else
+                            <th>Evento Finalizado</th>
                         </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>
         @else
-            <p>cê ainda não participa de nenhum evento</p>
-            <a href="/create">Criar evento</a>
+            <p>Você ainda não criou nenhum evento.<a href="/create"> Criar evento</a></p>
         @endif
         @if (count($eventasparticipant)>0)
             <p>Suas participações</p>

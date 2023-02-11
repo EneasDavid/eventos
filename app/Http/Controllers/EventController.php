@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
@@ -35,9 +36,19 @@ class EventController extends Controller
          $email=$request->email;
          $usuario=User::where('email', 'like', '%'.$email.'%')->first();
          if(empty($usuario)){
-              return redirect('/esqueceuSenha')->with('msg','Esse usuario não existe!');
-          }
-          return view('Login.novaSenha',['entidade'=>$usuario]);
+             return redirect('/esqueceuSenha')->with('msg','Esse usuario não existe!');
+        }
+        Mail::send(new \App\Mail\SendMail($usuario));
+        return redirect('/esqueceuSenha')->with('success','Enviamos um email com as instruções para redefinir sua senha');
+     }
+     public function verificaIdsenhaForms($id){
+        $user=user::all();
+        foreach($user as $destinatario){
+            if(Hash::check($destinatario->id,$id)){
+                return view('Login.novaSenha',['entidade'=>$destinatario]);
+            }
+        }
+        return back()->with('danger','usuario não encontrado');
      }
      public function esqueceuSenhaForms (Request $request)
      {
@@ -161,12 +172,15 @@ class EventController extends Controller
                 'rua'=>'required',
                 'nomeEvento'=>'required',
                 'descricao'=>'required',
+                'imagem'=>'required',
                 'time'=>'required',
                 'date'=>'required',
             ],[
                 'required'=>'Os campos marcados com * são obriatorios!']);
             //Passando os valores da web/request pro bd
             $event->nomeEvento=$request->nomeEvento;
+            $event->integranteQuantidade=$request->quantidadeP;
+            $event->integranteQuantidadePreenchidas=0;
             $event->cep=str_replace("-","",$request->cep);
             $event->rua=$request->rua;
             $event->bairro=$request->bairro;
@@ -177,6 +191,7 @@ class EventController extends Controller
             $event->items=$request->items;
             $event->date=$request->date;
             $event->time=$request->time;
+            $event->finalizada=0;
             //Upload de imagem
             if($request->hasfile('imagem') && $request->file('imagem')->isValid()){
                 $requestImagem=$request->imagem;
@@ -203,7 +218,7 @@ class EventController extends Controller
             if($busca){
                 $Events=Event::where([
                     ['nomeEvento', 'like', '%'.$busca.'%']
-                    ])->get();
+                    ])->whereNotIn(['finalizda',[1]])->get();
             }else{
                 $Events=Event::all();
             }
@@ -266,7 +281,12 @@ class EventController extends Controller
             }
             return view('edit',['event'=>$event]);
         }
-
+        public function finalizarEvento($id){
+            Event::findOrFail($id)->update([
+                'finalizada'=>1,
+            ]);
+            return back()->with('msg','Evento finalizado!');
+        }
         public function update(request $request){
             $date=$request->all();
             //Upload de imagem
@@ -291,14 +311,19 @@ class EventController extends Controller
             $user=auth()->user();
             $user->eventAsParticipant()->attach($id);
             $event=Event::findOrFail($id);
-            return redirect('/dashboard')->with('msg','Sua presença no evento ' . $event->title . ' foi confirmada');
+            $event->update([
+                'integranteQuantidadePreenchidas'=>$event->integranteQuantidadePreenchidas+1,
+            ]);
+            return redirect('/dashboard')->with('msg','Sua presença no evento '. $event->nomeEvento . ' foi confirmada');
         }  
 
         public function removeJoin($id){
             $user=auth()->user();
             $user->eventAsParticipant()->detach($id);
             $event=Event::findOrFail($id);
-            
-            return redirect('/dashboard')->with('msg','Sua presença no evento '.$event->title.' foi removida');
+            $event->update([
+                'integranteQuantidadePreenchidas'=>$event->integranteQuantidadePreenchidas-1,
+            ]);
+            return redirect('/dashboard')->with('msg','Sua presença no evento '.$event->nomeEvento.' foi removida');
         }
 }

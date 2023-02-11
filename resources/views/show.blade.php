@@ -64,6 +64,9 @@
         <p>às {{date('h:i', strtotime($event->time))}} Hrs</p>
         <hr></hr>
         <span class="font">Descrição do Evento</span>
+        @if($event->integranteQuantidade!=null)
+        <p><b>{{$event->integranteQuantidadePreenchidas}} de {{$event->integranteQuantidade}} vagas </b>já foram preenchidas</p>
+        @endif
         <div style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;"> 
           <p>{{$event->descricao}}</p>
           <div style="display: flex;flex-direction: column;align-items: stretch;">
@@ -78,22 +81,26 @@
           </div>
         </div>
         <hr></hr>
-        <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
-          <p style="margin-right: 10px;"><b>Organizador: </b> {{$eventOwner['name']}}</p>
+        <div style="display: flex;flex-direction: column-reverse;;justify-content: center;align-items: center;">
+          <p style="margin-right: 10px;"><b>Organizador: </b>@if($eventOwner['id']==$usuario->id) Você @else {{$eventOwner['name']}} @endif</p>
           @if ($eventOwner['id']==$usuario['id'])
-          <p><b>Participantes: </b>{{count($event->users)}}</p>
+            <p><b>Participantes: </b>{{count($event->users)}}</p>
+          @elseif($event->finalizada)
+              <p><b>EVENTO FINALIZADO</b></p>
+          @elseif(isset($event->integranteQuantidade) and $event->integranteQuantidadePreenchidas==$event->integranteQuantidade)
+                <p><b>EVENTO LOTADO</b></p>
           @elseif (!$JaParticipa)
-          <form action="/event/join/{{$event->id}}" method="POST">
-            @csrf 
-            <a class="btn btn-primary mb-3" href="/event/join/{{$event->id}}" 
-            id="event-submit" 
-            onclick="event.preventDefault();
+              <form action="/event/join/{{$event->id}}" method="POST">
+                @csrf 
+                <a class="btn btn-primary mb-3" href="/event/join/{{$event->id}}" 
+                id="event-submit" 
+                onclick="event.preventDefault();
                 this.closest('form').submit();">
-                Participar
-              </a>
-            </form>
-          @else
-          <p><i><b>Você já participa desse evento</b></i></p>
+               Participar
+               </a>
+              </form>
+          @elseif ($JaParticipa)
+              <p><i><b>Você já participa desse evento</b></i></p>
           @endif
           </div>
         </div>
