@@ -21,20 +21,20 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!--LINKS-->
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: flex-end;">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="float: right;">
                 @auth
                             {{--auth serve pra mostrar coisas pra quem tá logado--}}
                             <li class="nav-item active">
-                                <a class="nav-link" href="/dashboard">Meus eventos</a>
+                                <a class="nav-link" href="/dashboard" style="cursor:pointer">Meus eventos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/create">Criar eventos</a>
+                                <a class="nav-link" href="/create" style="cursor:pointer">Criar eventos</a>
                             </li>
                             <li class="nav-item">
                                 <form action="/logout" method="post">
                                 @csrf
-                                    <a class="nav-link" href="/" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
+                                    <a class="nav-link" style="cursor:pointer" href="/" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
                                     {{--closest('form') fecha o formulario mais perto--}}
                                 </form>
                             </li>
@@ -42,16 +42,108 @@
                         @guest
                         {{--guest serve pra mostrar coisas pra pessoas não logadas--}}
                         <li class="nav-item">
-                                <a class="nav-link" href="/login">logar</a>
+                                <a class="nav-link" onclick="chamaPopUp()" style="cursor:pointer">LOGAR</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/register">cadastrar</a>
+                                <a class="nav-link" onclick="chamaPopUp()" style="cursor:pointer">CADASTRAR</a>
                             </li>
                         @endguest
             </ul>       
          </div>
         </nav>
-  
+        <div class="modal pagina" id="modalExemplo" tabindex="-1" role="dialog" style="margin: 0!important;" aria-labelledby="exampleModalLabel" aria-hidden="true" popUp-cadastrar-tag> 
+        <div class="wrapper">
+            <div class="container">
+                <button type="button" class="btn-close btn-close-white" aria-label="Close" data-dismiss="modal" style="width: inherit;" onclick="removerPopUp()"></button>
+                <div class="sign-up-container">
+                    <form class="form" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
+                    @if ($errors->any())
+                        <div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @break;
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
+                        @if (session('danger'))
+                        <div class="alert alert-danger">
+                            {{ session('danger') }}
+                        </div>
+                        @endif
+                        @csrf
+                        <h1>CRIE SUA CONTA</h1>
+                        <span>informe seus dados</span>
+                        <input type="text" name="name" aria-describedby="emailHelp" placeholder="NOME*">
+                        <input type="email" name="email" aria-describedby="emailHelp" placeholder="EMAIL*">
+                        <input type="email" name="email" aria-describedby="emailHelp" placeholder="CONFIRME O EMAIL*">
+                        <input type="password" name="password" aria-describedby="emailHelp" placeholder="SENHA*">
+                        <button class="form_btn">CADASTRO</button>
+                    </form>
+                </div>
+                <div class="sign-in-container">
+                    <form class="form" action="{{route('login.login')}}" method="post">
+                        @if ($errors->any())
+                        <div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @break;
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
+                        @if (session('danger'))
+                        <div class="alert alert-danger">
+                            {{ session('danger') }}
+                        </div>
+                        @endif
+                        @csrf
+                        <h1>Entrar</h1>
+                        <span>Use sua conta</span>
+                        <input type="email" name="email" aria-describedby="emailHelp" placeholder="Email:" required>
+                        <input type="password" name="password" placeholder="Senha:" required>
+                        <div class="mb-3 row" style="align-items: center !important;">
+                            <div class="col-md-6">
+                                <a href="/esqueceuSenha" >ESQUECI SENHA</a>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="form_btn" type="submit" style="float: right;">ENTRAR</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="overlay-container">
+                    <div class="overlay-left">
+                        <h1>JÁ TEM UMA CONTA?</h1>
+                        <p>Faça seu login para ter acesso a mais funcionalidades em nosso site!</p>
+                        <button id="signIn" class="overlay_btn">ENTRAR</button>
+                    </div>
+                    <div class="overlay-right">
+                        <h1>OLÁ AMIGO</h1>
+                        <p>Ainda não tem uma conta? Cadastre-se agora e recessa acesso a funcionalidades exclusivas a usuarios do nosso site!</p>
+                        <button id="signUp" class="overlay_btn">CADASTRE-SE</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <script>
+                const signUpBtn = document.getElementById("signUp");
+                const signInBtn = document.getElementById("signIn");
+                const container = document.querySelector(".container");
+                signUpBtn.addEventListener("click",() =>{
+                    container.classList.add("right-panel-active");
+                })
+                signInBtn.addEventListener("click",() =>{
+                    container.classList.remove("right-panel-active")
+                })
+         </script>
+        </div>
     <div class="col-md-10 offset-md-1 pt-2">
       <div class="row " style="height: 20rem;border-radius: 30px">
         <img class="img-fluid img-center-show" style="border-radius: 30px" src="/img/events/{{$event->imagem}}" alt="Não foi possivel carregar a imagem">
@@ -82,7 +174,7 @@
         </div>
         <hr></hr>
         <div style="display: flex;flex-direction: column-reverse;;justify-content: center;align-items: center;">
-          <p style="margin-right: 10px;"><b>Organizador: </b>@if($eventOwner['id']==$usuario->id) Você @else {{$eventOwner['name']}} @endif</p>
+          <p style="margin-right: 10px;"><b>Organizador: </b>@if($eventOwner['id']==$usuario['id']) Você @else {{$eventOwner['name']}} @endif</p>
           @if ($eventOwner['id']==$usuario['id'])
             <p><b>Participantes: </b>{{count($event->users)}}</p>
           @elseif($event->finalizada)
@@ -116,6 +208,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
     integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
     crossorigin="anonymous"></script>
+    <script src="/js/popUp.js"></script>
+
 
 </body>
 

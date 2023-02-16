@@ -12,10 +12,6 @@ use App\Models\User;
 class EventController extends Controller
 {
     //Login
-        public function login(Request $request)
-        {
-            return view('Login.login');
-        }
         public function loginForms(Request $request)
         {
             $entidade=User::where('email',$request->email)->first(); 
@@ -64,9 +60,6 @@ class EventController extends Controller
          return redirect('/');
      }
     //cadastro usuario
-        public function register(){
-            return view('Login.register');
-        }
         public function registerForms(Request $request){
             $usuarios = new User;
             $this->validate($request,[
@@ -105,9 +98,8 @@ class EventController extends Controller
                 $date['foto']=$imagemName;
             }
             $usuarios->save();
-            return view('Login.login');
-        }
-        
+            return back();
+        }    
     //cadastro usuario
     //atualizar usuario
         public function editarUsuario($id){
@@ -218,10 +210,11 @@ class EventController extends Controller
             if($busca){
                 $Events=Event::where([
                     ['nomeEvento', 'like', '%'.$busca.'%']
-                    ])->whereNotIn(['finalizda',[1]])->get();
+                    ])->whereNotIn('finalizada',[1])->get();
             }else{
-                $Events=Event::all();
+                $Events=Event::whereNotIn('finalizada',[1])->get();
             }
+           // dd($Events);
             return view('events',['events'=>$Events,'busca'=>$busca]);
         }
 

@@ -12,7 +12,6 @@ use App\Http\Controllers\EventController;
 Route::middleware('guest')->group(function(){
     //Login
         //Login
-            Route::get('/login', [EventController::class, 'login'])->name('login');
             Route::post('/Forms-login', [EventController::class, 'loginForms'])->name('login.login');
         //Esqueceu senha
             Route::get('/esqueceuSenha', [EventController::class, 'indexSenha']);
@@ -21,7 +20,6 @@ Route::middleware('guest')->group(function(){
             Route::put('/esqueceuSenha-Forms-senha', [EventController::class, 'esqueceuSenhaForms'])->name('recSenhaEntidade');
     //Login
     //cadastro de usuario
-        Route::get('/register', [EventController::class, 'register'])->name('register'); 
         Route::POST('/Forms-register', [EventController::class, 'registerForms'])->name('register');
     //cadastro de usuario
 });
