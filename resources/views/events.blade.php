@@ -220,12 +220,16 @@
         <br>
         <br>
         <div class="col-md-12 centered my-auto" style="width: max-content;margin-right:10%;margin-left:10%">
+            @if(empty($user))
+            <button type="submit" onclick="chamaPopUp()" class="btn btn-primary btn-lg">Nenhum evento disponivel.</br>Click aqui para criar um!</button>
+            @else
             <a type="submit" href="/create" class="btn btn-primary btn-lg">Nenhum evento disponivel.</br>Click aqui para criar um!</a>
+            @endif
         </div>
         @else
-        <div style="margin-right:10%;margin-left: 10%;display: flex;flex-wrap: wrap;justify-content: space-between;">
+        <div style="margin-right:10%;margin-left: 10%;display: flex;flex-wrap: wrap;justify-content: flex-start;">
         @foreach ($events as $event)
-            <a style="height: 190px;width: 300px;" href="/event/{{$event->id}}">
+            <a style="height: 190px;width: 32%;" href="/event/{{$event->id}}">
                 <div class="container marketing" style="height: 190px;width: 300px;">   
                         <div class="row featurette">
                         <div style="color: #000;">

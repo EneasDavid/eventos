@@ -114,16 +114,16 @@
           <div class="from-grup col-md-6">
               <label for="items"><strong>Items</strong></label>
               <div class="from-grup">
-                  <input type="checkbox" name="items[]" value="palco">palco
+                  <input style="width: auto!important;" type="checkbox" name="items[]" value="palco">palco
                 </div>
               <div class="from-grup">
-                  <input type="checkbox" name="items[]" value="bebidas">bebidas
+                  <input style="width: auto!important;" type="checkbox" name="items[]" value="bebidas">bebidas
                 </div>
               <div class="from-grup">
-                  <input type="checkbox" name="items[]" value="brindes">brindes
+                  <input style="width: auto!important;" type="checkbox" name="items[]" value="brindes">brindes
               </div>
               <div class="from-grup">
-                  <input type="checkbox" name="items[]" value="cadeiras">cadeiras
+                  <input style="width: auto!important;" type="checkbox" name="items[]" value="cadeiras">cadeiras
               </div>
           </div>
           <div class="form-grup col-md-6" style="display:grid">

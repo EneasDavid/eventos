@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function(){
 
     //Deletar
         Route::delete('/event/{id}',[EventController::class,'deletar']);
+        Route::get('/user/{id}',[EventController::class,'deletarUser']);
     //Deletar
 
     //Finalizar

@@ -98,7 +98,8 @@ class EventController extends Controller
                 $date['foto']=$imagemName;
             }
             $usuarios->save();
-            return back();
+            Auth::loginUsingId($usuarios->id);
+            return redirect('/');
         }    
     //cadastro usuario
     //atualizar usuario
@@ -150,7 +151,13 @@ class EventController extends Controller
         }
         
     //atualizar usuario
-    
+    //Excluir usuario
+        public function deletarUser($idUser){
+          User::findOrFail($idUser)->delete();
+            return redirect('/');
+        } 
+    //Excluir usuario
+
         public function create(){
             return view('create');
         }   
@@ -205,7 +212,9 @@ class EventController extends Controller
 
         }
 
-        public function event(){
+        public function event()
+        {
+            $user=auth()->user();
             $busca=request('search');
             if($busca){
                 $Events=Event::where([
@@ -215,7 +224,7 @@ class EventController extends Controller
                 $Events=Event::whereNotIn('finalizada',[1])->get();
             }
            // dd($Events);
-            return view('events',['events'=>$Events,'busca'=>$busca]);
+            return view('events',['user'=>$user,'events'=>$Events,'busca'=>$busca]);
         }
 
         public function show($id){

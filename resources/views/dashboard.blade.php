@@ -52,7 +52,7 @@
          </div>
         </nav>
     <div class="col-md-10 offset-md-1 dashbord-title-container">
-    <h1 class="col-md-8 m-auto" style="width: max-content;">Meus eventos</h1>
+    <h1 class="col-md-8 m-auto" style="width: max-content;padding-bottom: 3rem;">Meus eventos</h1>
     @if (session('msg'))
     <div class="alert alert-success">
       {{ session('msg') }}
@@ -60,18 +60,17 @@
     @endif
     <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-around;">
     <div style="display: grid;justify-items: center;">
-
-    @if(!empty($user->foto))
-    <label tabIndex="0" for="picture__input" type="file" class="picture" style="padding:0px!important">
-        <img src="/img/usuarios/{{$user->foto}}" class="fotoPerfil" alt="Não foi possível carregar sua foto" style="height: 15rem;width: 15rem;">
-    </label>
-    @else
-    <label tabIndex="0" for="picture__input" type="file" class="picture" style="background: rgb(219, 221, 223);border-radius:100%">
-        <img src="/img/user.png" class="fotoPerfil" style="height: 15rem;width: 15rem;"></img>
-    </label>
-    @endif
-    <strong>{{$user->name}}</strong>
-    <a class="btn btn-primary mb-3" href="/editarUsuario/{{$user->id}}">Editar</a>
+        @if(!empty($user->foto))
+        <label tabIndex="0" for="picture__input" type="file" class="picture" style="padding:0px!important">
+            <img src="/img/usuarios/{{$user->foto}}" class="fotoPerfil" alt="Não foi possível carregar sua foto" style="height: 15rem;width: 15rem;">
+        </label>
+        @else
+        <label tabIndex="0" for="picture__input" type="file" class="picture" style="background: rgb(219, 221, 223);border-radius:100%">
+            <img src="/img/user.png" class="fotoPerfil" style="height: 15rem;width: 15rem;"></img>
+        </label>
+        @endif
+        <strong>{{$user->name}}</strong>
+        <a class="btn btn-primary mb-3" href="/editarUsuario/{{$user->id}}">Editar</a>
     </div>
     <div class="col-md-10 offset-md-1 dashbord-events-container">
         @if(count($events)>0) 
@@ -139,6 +138,7 @@
                     </tr>
                     @endforeach
         @else
+        </hr><hr>
             <p>Cê ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
         @endif
     </div>
