@@ -29,7 +29,7 @@
                                 <a class="nav-link" href="/dashboard">Meus eventos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/create">Criar eventos</a>
+                            <a class="nav-link" onclick="chamaPopUpEvent()" style="cursor:pointer">Criar eventos</a>
                             </li>
                             <li class="nav-item">
                                 <form action="/logout" method="post">
@@ -52,6 +52,107 @@
          </div>
         </nav>
     <div class="col-md-10 offset-md-1 dashbord-title-container">
+    <div class="modal pagina" id="modalExemplo" tabindex="-1" role="dialog" style="margin: 0!important;" aria-labelledby="exampleModalLabel" aria-hidden="false" popUp-cadastrar-event> 
+        <div class="wrapper">
+            <div class="container">
+                <button type="button" class="btn-close btn-close-white" aria-label="Close" data-dismiss="modal" style="width: inherit;" onclick="removerPopUpEvent()"></button>
+                <div class="sign-in-container">
+                    <form class="form" action="/events" method="POST" enctype="multipart/form-data">
+                        @if ($errors->any())
+                        <div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @break;
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
+                        @if (session('danger'))
+                        <div class="alert alert-danger">
+                            {{ session('danger') }}
+                        </div>
+                        @endif
+                        @csrf
+                        <h1>CRIE SEU EVENTO</h1>
+                        <span>INFORME OS DADOS DO EVENTO</span>
+                    </hr><hr>
+                    <div class="mb-3 row">
+                        <label for="date"><strong>Dados do Evento</strong></label>
+                        <div class="col-md-12 mb-4">
+                            <label for="imagem">Foto do evento*</label>
+                            <input type="file" class="form-control-file" id="imagem" name="imagem" >
+                        </div>
+                        <div class="col-md-8 mb-4">
+                            <input type="text" class="form-control" id="title" name="nomeEvento" placeholder="Digite o nome do evento *">
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <input type="number" step="0" min="1" class="form-control" id="title" name="quantidadeP" placeholder="Quantidade de participantes">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="date">Data do evento *</label>
+                            <input  class="form-control" type="date" name="date" id="date">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="date">Horario do evento *</label>
+                            <input class="form-control" type="time" id="appt" name="time" smin="00:01" max="23:59" required>          
+                        </div>
+                    </div>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay-right">
+                    <div class="mb-3 row">
+                        <label for="date"><strong>Endereço do Evento</strong></label>
+                        <div class="col-md-4 mb-4">
+                            <input type="text" class="form-control" id="cep" placeholder="Digite seu CEP *"  name="cep" maxlength="9" minlength="8" data-cep>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <input type="text" class="form-control" id="cidade" placeholder="Cidade *" name="cidade" readonly >
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <input type="text" class="form-control" id="uf" name="uf" name="uf" placeholder="Estado *" readonly >
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <input type="text" class="form-control" id="rua" placeholder="Rua *" name="rua" readonly >
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <input type="text" class="form-control" id="bairro" placeholder="Bairro *" name="bairro" readonly >
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="date"><strong>Dados adicionais do Evento</strong></label>
+                        <div class="from-grup col-md-6">
+                            <label for="items"><strong>Items</strong></label>
+                            <div class="from-grup">
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="palco">palco
+                            </div>
+                            <div class="from-grup">
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="bebidas">bebidas
+                            </div>
+                            <div class="from-grup">
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="brindes">brindes
+                            </div>
+                            <div class="from-grup">
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="cadeiras">cadeiras
+                            </div>
+                        </div>
+                        <div class="form-grup col-md-6" style="display:grid">
+                            <label for="descricao">Descrição *</label>
+                            <textarea name="descricao" id="descricao" class="from-controller"></textarea>   
+                        </div>
+                    </div>
+                    <button id="signUp" type="submit"  class="overlay_btn">CRIAR EVENTO</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
     <h1 class="col-md-8 m-auto" style="width: max-content;padding-bottom: 3rem;">Meus eventos</h1>
     @if (session('msg'))
     <div class="alert alert-success">
@@ -158,7 +259,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
     integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
     crossorigin="anonymous"></script>
-
+    <script src="js/consultaCEP.js"></script>
+  <script src="js/popUp.js"></script>
 </body>
 
 </html>
