@@ -233,7 +233,7 @@
                                 <img class="img-event-post" src="/img/events/{{$event->imagem}}" alt="{{$event->title}}"></img>
                             </div>
                             <div class="p-2 d-flex flex-column  align-items-center border border-secondary rounded" style="position: relative !important;background: white;@php if(isset($event->imagem)) echo 'margin-top: -10px;' @endphp">
-                                <p class="estiloFont"><b>{{$event->cidade}} ° {{date('d/m/y', strtotime($event->date))}} > {{date('h:m', strtotime($event->time))}}</b></p>
+                                <p class="estiloFont"><b>{{$event->cidade}} ° {{date('d/m/y', strtotime($event->date))}} | {{date('h:m', strtotime($event->time))}}</b></p>
                                 <p class="estiloFont" class="truncate-1l" style="display: flex;justify-content: space-around;" ><b>{{$event->nomeEvento}}</b></p>
                             </div>
                         </div>
@@ -250,8 +250,7 @@
   <script src="js/jquery.js"></script>
   <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
   <script src="js/script.js"></script>
-  <script 
-  src = "https://code.jquery.com/jquery-3.4.1.min.js" integridade = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin = "anonymous" > </script>
+  <script src = "https://code.jquery.com/jquery-3.4.1.min.js" integridade = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin = "anonymous" > </script>
 </body>
 <script src="js/popUp.js"></script>
 <script src="js/consultaCEP.js"></script>
