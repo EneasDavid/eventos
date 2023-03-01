@@ -12,6 +12,7 @@ use App\Http\Controllers\EventController;
 Route::middleware('guest')->group(function(){
     //Login
         //Login
+            Route::get('/login', [EventController::class, 'login'])->name('login');
             Route::post('/Forms-login', [EventController::class, 'loginForms'])->name('login.login');
         //Esqueceu senha
             Route::get('/esqueceuSenha', [EventController::class, 'indexSenha']);

@@ -26,10 +26,10 @@
                 @auth
                             {{--auth serve pra mostrar coisas pra quem tá logado--}}
                             <li class="nav-item active">
-                                <a class="nav-link" href="/dashboard">Meus eventos</a>
+                                <a class="nav-link active" href="/dashboard">Meus eventos</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" onclick="chamaPopUpEvent()" style="cursor:pointer">Criar eventos</a>
+                            <a class="nav-link" href="/create">Criar eventos</a>
                             </li>
                             <li class="nav-item">
                                 <form action="/logout" method="post">
@@ -39,15 +39,7 @@
                                 </form>
                             </li>
                         @endauth
-                        @guest
-                        {{--guest serve pra mostrar coisas pra pessoas não logadas--}}
-                        <li class="nav-item">
-                                <a class="nav-link" href="/login">logar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/register">cadastrar</a>
-                            </li>
-                        @endguest
+                       
             </ul>       
          </div>
         </nav>

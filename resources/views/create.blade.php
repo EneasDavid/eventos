@@ -29,7 +29,7 @@
                                 <a class="nav-link" href="/dashboard">Meus eventos</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="/create">Criar eventos</a>
+                                <a class="nav-link active" href="/create">Criar eventos</a>
                             </li>
                             <li class="nav-item">
                                 <form action="/logout" method="post">

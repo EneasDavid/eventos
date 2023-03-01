@@ -174,7 +174,7 @@
         </div>
         <hr></hr>
         <div style="display: flex;flex-direction: column-reverse;;justify-content: center;align-items: center;">
-          <p style="margin-right: 10px;"><b>Organizador: </b>@if($eventOwner['id']==$usuario['id']) Você @else {{$eventOwner['name']}} @endif</p>
+          <p style="margin-right: 10px;">Organizado por <b>@if($eventOwner['id']==$usuario['id']) Você @else {{$eventOwner['name']}} @endif</b></p>
           @if ($eventOwner['id']==$usuario['id'])
             <p><b>Participantes: </b>{{count($event->users)}}</p>
           @elseif($event->finalizada)

@@ -12,7 +12,20 @@ use App\Models\User;
 class EventController extends Controller
 {
     //Login
-        public function loginForms(Request $request)
+        public function login()
+        {
+            $user=auth()->user();
+            $busca=request('search');
+            if($busca){
+                $Events=Event::where([
+                    ['nomeEvento', 'like', '%'.$busca.'%']
+                    ])->whereNotIn('finalizada',[1])->get();
+            }else{
+                $Events=Event::whereNotIn('finalizada',[1])->get();
+            }
+            return view('eventsLogin',['user'=>$user,'events'=>$Events,'busca'=>$busca]);
+        }
+            public function loginForms(Request $request)
         {
             $entidade=User::where('email',$request->email)->first(); 
                 if($entidade && Hash::check($request->password,$entidade->password)){

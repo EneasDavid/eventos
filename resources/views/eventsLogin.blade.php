@@ -58,10 +58,10 @@
             </ul>       
          </div>
         </nav>
-        <div class="modal pagina" id="modalExemplo" tabindex="-1" role="dialog" style="margin: 0!important;" aria-labelledby="exampleModalLabel" aria-hidden="true" popUp-cadastrar-tag> 
+        <div class="modal pagina aparecer" id="modalExemplo" tabindex="-1" role="dialog" style="margin: 0!important;" aria-labelledby="exampleModalLabel" aria-hidden="true" popUp-cadastrar-tag> 
         <div class="wrapper">
             <div class="container">
-                <button type="button" class="btn-close btn-close-white" aria-label="Close" data-dismiss="modal" style="width: inherit;" onclick="removerPopUp()"></button>
+                <a type="button" class="btn-close btn-close-white" aria-label="Close" data-dismiss="modal" style="width: inherit;" href="/"></a>
                 <div class="sign-up-container">
                     <form class="form" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
                     @if ($errors->any())
