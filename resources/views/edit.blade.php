@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Host Event</title>
-  <!--CSS Bootstrap-->
-  <link rel="stylesheet" href="css/style.css">
+   <!--CSS Bootstrap-->
+   <link rel="stylesheet" href="/css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <!--CSS -->
@@ -19,9 +19,6 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" aria-label="Search">
-            </form> 
             <!--LINKS-->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="float: right;">
@@ -41,18 +38,14 @@
                                 </form>
                             </li>
                         @endauth
-                        @guest
-                        {{--guest serve pra mostrar coisas pra pessoas não logadas--}}
-                        <li class="nav-item">
-                                <a class="nav-link" href="/login">logar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/register">cadastrar</a>
-                            </li>
-                        @endguest
             </ul>       
          </div>
         </nav>
+        <div class="col-md-10 offset-md-1 pt-2">
+      <div class="row " style="height: 20rem;border-radius: 30px">
+        <img class="img-fluid img-center-show" style="border-radius: 30px" src="/img/events/{{$event->imagem}}" alt="Não foi possivel carregar a imagem">
+      </div>
+    </div>
     <div id="event-create-conteiner" class="col-md-6 offset-md-3">
     <h1>Edite seu evento</h1>
     <form action="/event/update/{{$event->id}}" method="POST" enctype="multipart/form-data">
@@ -61,12 +54,12 @@
         {{--Diretiva obrigatoria no LARAVEL, senão não permite adicionar dados no bd--}}
         {{--enctype é obrigatorio ter, caso queira receber arrquivos do formulario--}}
         </hr><hr>
+        
         <div class="mb-3 row">
           <label for="date"><strong>Dados do Evento</strong></label>
           <div class="col-md-12 mb-4">
             <label for="imagem">Foto do evento</label>
             <input type="file" class="form-control-file" id="imagem" name="imagem">
-            <img src="/img/events/{{$event->imagem}}" alt="{{$event->title}}" class="img-preview">
          </div>
          <div class="col-md-12 mb-4">
              <label for="title">Título</label>
@@ -109,16 +102,16 @@
           <div class="from-grup col-md-6">
               <label for="items"><strong>Items</strong></label>
               <div class="from-grup">
-                  <input type="checkbox" name="items[]" value="palco">palco
+                  <input style="width: auto!important;" type="checkbox" name="items[]" value="palco">palco
                 </div>
               <div class="from-grup">
-                  <input type="checkbox" name="items[]" value="bebidas">bebidas
+                  <input style="width: auto!important;" type="checkbox" name="items[]" value="bebidas">bebidas
                 </div>
               <div class="from-grup">
-                  <input type="checkbox" name="items[]" value="brindes">brindes
+                  <input style="width: auto!important;" type="checkbox" name="items[]" value="brindes">brindes
               </div>
               <div class="from-grup">
-                  <input type="checkbox" name="items[]" value="cadeiras">cadeiras
+                  <input style="width: auto!important;" type="checkbox" name="items[]" value="cadeiras">cadeiras
               </div>
           </div>
           <div class="form-grup col-md-6" style="display:grid">
