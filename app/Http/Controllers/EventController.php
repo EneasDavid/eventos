@@ -224,19 +224,26 @@ class EventController extends Controller
             return redirect('/')->with('msg','Evento criado');
 
         }
-
         public function event()
         {
             $user=auth()->user();
             $busca=request('search');
+            $localizacaoAtual=request('s');
             if($busca){
                 $Events=Event::where([
                     ['nomeEvento', 'like', '%'.$busca.'%']
                     ])->whereNotIn('finalizada',[1])->get();
             }else{
-                $Events=Event::whereNotIn('finalizada',[1])->get();
+                if(!empty($localizacaoAtual)){
+                     $Events=Event::whereNotIn('finalizada',[1])->where('uf','like',$localizacaoAtual)->get();
+                     if(count($Events)<1){
+                         $Events=Event::whereNotIn('finalizada',[1])->get();
+                         return redirect('/')->with('msg','parece que não há eventos na sua localidade');
+                     }
+                }else{
+                    $Events=Event::whereNotIn('finalizada',[1])->get();
+                }
             }
-           // dd($Events);
             return view('events',['user'=>$user,'events'=>$Events,'busca'=>$busca]);
         }
 
