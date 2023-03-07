@@ -48,6 +48,18 @@
     </div>
     <div id="event-create-conteiner" class="col-md-6 offset-md-3">
     <h1>Edite seu evento</h1>
+    @if ($errors->any())
+    <div>
+      <div class="alert alert-danger">
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @break;
+          @endforeach
+        </ul>
+      </div>
+    </div>
+    @endif
     <form action="/event/update/{{$event->id}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

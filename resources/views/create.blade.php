@@ -53,9 +53,16 @@
         </nav>
       <h1 class="col-md-8 m-auto" style="width: max-content;">Criar</h1>
       <div id="event-create-conteiner" class="col-md-6 offset-md-3">
-        @if (session('msg'))
-        <div class="alert alert-danger">
-          {{ session('msg') }}
+        @if ($errors->any())
+        <div>
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @break;
+              @endforeach
+            </ul>
+          </div>
         </div>
         @endif
         <h1>Crie seu evento</h1>

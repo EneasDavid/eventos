@@ -77,7 +77,7 @@
                         </div>
                         @endif
                         @if (session('danger'))
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger" style="display: flex;justify-content: space-evenly;">
                             {{ session('danger') }}
                         </div>
                         @endif
@@ -151,7 +151,7 @@
                         </div>
                         @endif
                         @if (session('danger'))
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger" style="display: flex;justify-content: space-evenly;">
                             {{ session('danger') }}
                         </div>
                         @endif

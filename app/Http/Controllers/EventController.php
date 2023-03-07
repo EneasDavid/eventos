@@ -110,9 +110,12 @@ class EventController extends Controller
                 //salva no bd
                 $date['foto']=$imagemName;
             }
-            $usuarios->save();
-            Auth::loginUsingId($usuarios->id);
-            return redirect('/');
+            if(empty(user::where('email',$request->email)->first())){
+                $usuarios->save();
+                Auth::loginUsingId($usuarios->id);
+                return redirect('/');
+            }
+            return redirect('/')->with('alert','ouve um erro no seu cadastro')->with('danger','email já cadastrado!');
         }    
     //cadastro usuario
     //atualizar usuario
@@ -229,19 +232,20 @@ class EventController extends Controller
             $user=auth()->user();
             $busca=request('search');
             $localizacaoAtual=request('s');
+            $hoje = date('Y/m/d');
             if($busca){
                 $Events=Event::where([
                     ['nomeEvento', 'like', '%'.$busca.'%']
-                    ])->whereNotIn('finalizada',[1])->get();
+                    ])->whereNotIn('finalizada',[1])->where('date','>=',$hoje)->get();
             }else{
                 if(!empty($localizacaoAtual)){
-                     $Events=Event::whereNotIn('finalizada',[1])->where('uf','like',$localizacaoAtual)->get();
+                     $Events=Event::whereNotIn('finalizada',[1])->where('date','>=',$hoje)->where('uf','like',$localizacaoAtual)->get();
                      if(count($Events)<1){
-                         $Events=Event::whereNotIn('finalizada',[1])->get();
+                        $Events=Event::whereNotIn('finalizada',[1])->where('date','>=',$hoje)->get();
                          return redirect('/')->with('msg','parece que não há eventos na sua localidade');
                      }
                 }else{
-                    $Events=Event::whereNotIn('finalizada',[1])->get();
+                    $Events=Event::whereNotIn('finalizada',[1])->where('date','>=',$hoje)->get();
                 }
             }
             return view('events',['user'=>$user,'events'=>$Events,'busca'=>$busca]);
@@ -296,6 +300,7 @@ class EventController extends Controller
         }
 
         public function edit($id){
+
             $event=Event::findOrFail($id);
             $user=auth()->user();
             if($user->id!=$event->user->id){
@@ -310,6 +315,16 @@ class EventController extends Controller
             return back()->with('msg','Evento finalizado!');
         }
         public function update(request $request){
+            $this->validate($request,[
+                'nomeEvento'=>'required',
+                'cep'=>'required',
+                'rua'=>'required',
+                'nomeEvento'=>'required',
+                'descricao'=>'required',
+                'time'=>'required',
+                'date'=>'required',
+            ],[
+                'required'=>'Os campos marcados com * são obriatorios!']);
             $date=$request->all();
             //Upload de imagem
             if($request->hasfile('imagem') && $request->file('imagem')->isValid()){

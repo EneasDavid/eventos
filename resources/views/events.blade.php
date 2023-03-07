@@ -151,7 +151,7 @@
                         </div>
                         @endif
                         @if (session('danger'))
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger" style="display: flex;justify-content: space-evenly;">
                             {{ session('danger') }}
                         </div>
                         @endif
@@ -201,8 +201,13 @@
 </div>
 </div>
         @if (session('msg'))
-            <div class="alert alert-success">
+            <div class="alert alert-success" style="display: flex;justify-content: space-evenly;">
                 {{ session('msg') }}
+        </div>
+         @endif
+         @if (session('alert'))
+            <div class="alert alert-warning" style="display: flex;justify-content: space-evenly;">
+                {{ session('alert') }}
         </div>
          @endif
         @if ($busca)
