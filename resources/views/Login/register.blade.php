@@ -69,6 +69,7 @@
      <form class="col-md-8 m-auto" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
    @else
      <form class="col-md-8 m-auto" action="/update?id={{$user->id}}" enctype="multipart/form-data" method="POST">
+     @method('PUT')
    @endif
       @csrf
       </hr><hr>
@@ -128,18 +129,17 @@
             <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento" value='{{!empty($user)?"$user->complemento":""}}'>
           </div>
       </div>
-    <div class="p-2 bd-highlight" style="display: flex;justify-content: space-between;">
-      <a class="btn btn-danger mb-3" href="/user/{{$user->id}}">
-        <form action="/user/{{$user->id}}" method="POST">
-          @csrf
-          @method('DELETE')
-        </form>
-        DELETAR
-      </a>
+    <div class="p-2 bd-highlight" style="display: flex;justify-content: space-between;flex-direction: row-reverse;">
       <button class="btn btn-primary mb-3" type="submit">{{!empty($user)?"Atualizar":"Cadastra-se"}}</button>
-    </div>
-    </form>
-
+  </form>
+    <a class="btn btn-danger mb-3" href="/user/{{$user->id}}">
+       <form action="/user/{{$user->id}}" method="POST">
+       @csrf
+       @method('DELETE')
+      </form>
+      DELETAR
+      </a>
+  </div>
   </div>
 
 

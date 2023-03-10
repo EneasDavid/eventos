@@ -170,7 +170,7 @@ class EventController extends Controller
     //Excluir usuario
         public function deletarUser($idUser){
           User::findOrFail($idUser)->delete();
-            return redirect('/');
+          return redirect('/');
         } 
     //Excluir usuario
 

@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function(){
     //Logout
     //Editar usuario
         Route::get('/editarUsuario/{id}', [EventController::class, 'editarUsuario']); 
-        Route::POST('/update', [EventController::class, 'editarUsuarioForms']);
+        Route::put('/update', [EventController::class, 'editarUsuarioForms']);
     //Editar  usuario
     //Listagem e informação de evento
         //PRIVADO
