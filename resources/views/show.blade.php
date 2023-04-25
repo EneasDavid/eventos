@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" style='height: auto;'>
 
 <head>
   <meta charset="utf-8">
@@ -15,7 +15,7 @@
 <body>
         <!--NAVBAR-->
         <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">HostEvent</a>
+            <a class="navbar-brand logo" href="/">HostEvent</a>
             <!--SÓ APARECE NO CELULAR-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
                             <li class="nav-item">
                                 <form action="/logout" method="post">
                                 @csrf
-                                    <a class="nav-link" style="cursor:pointer" href="/" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
+                                    <a class="nav-link logout" style="cursor:pointer" href="/" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
                                     {{--closest('form') fecha o formulario mais perto--}}
                                 </form>
                             </li>
@@ -47,13 +47,13 @@
         <img class="img-fluid img-center-show" style="border-radius: 30px" src="/img/events/{{$event->imagem}}" alt="Não foi possivel carregar a imagem">
       </div>
     </div>
-    <div id="info-conteiner" style="margin-right:12rem;margin-left:12rem">
-        <span class="font" style="display: flex;justify-content: space-around;">{{$event->nomeEvento}} - {{$semanaD[date('l', strtotime($event->date))]}}, {{date('d/m/y', strtotime($event->date))}}</span>
+    <div id="info-conteiner" style="margin-right:12rem;margin-left:12rem;color:#032442">
+        <span class="font" style="display: flex;justify-content: space-around;color: white;">{{$event->nomeEvento}} - {{$semanaD[date('l', strtotime($event->date))]}}, {{date('d/m/y', strtotime($event->date))}}</span>
         <hr></hr>
         <p class="m-0"><b>{{$event->cidade}} - {{$event->uf}}</b></p>
         <p>às {{date('h:i', strtotime($event->time))}} Hrs</p>
         <hr></hr>
-        <span class="font">Descrição do Evento</span>
+        <span class="font" style="color: white;">Descrição do Evento</span>
         @if($event->integranteQuantidade!=null)
         <p><b>{{$event->integranteQuantidadePreenchidas}} de {{$event->integranteQuantidade}} vagas </b>já foram preenchidas</p>
         @endif
@@ -72,7 +72,7 @@
         </div>
         <hr></hr>
         <div style="display: flex;flex-direction: column-reverse;;justify-content: center;align-items: center;">
-          <p style="margin-right: 10px;">Organizado por <b>@if($eventOwner['id']==$usuario['id']) Você @else {{$eventOwner['name']}} @endif</b></p>
+          <p style="margin-right: 10px;COLOR: #5d717a;font-size: 13PX !IMPORTANT;">Organizado por <b>@if($eventOwner['id']==$usuario['id']) Você @else {{$eventOwner['name']}} @endif</b></p>
           @if ($eventOwner['id']==$usuario['id'])
             <p><b>Participantes: </b>{{count($event->users)}}</p>
           @elseif($event->finalizada)
@@ -86,7 +86,7 @@
                 id="event-submit" 
                 onclick="event.preventDefault();
                 this.closest('form').submit();">
-               Participar
+               PARTICIPAR
                </a>
               </form>
           @elseif ($JaParticipa)

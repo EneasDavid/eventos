@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" style="height: unset !important;">
 
 <head>
   <meta charset="utf-8">
@@ -15,7 +15,7 @@
 <body>
   <!--NAVBAR-->
   <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">HostEvent</a>
+    <a class="navbar-brand logo" href="/">HostEvent</a>
     <!--SÓ APARECE NO CELULAR-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -24,24 +24,28 @@
     <!--LINKS-->
     <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: flex-end;">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="float: right;">
-        <li class="nav-item active">
-          <a class="nav-link" href="/dashboard" style="cursor:pointer">Meus eventos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/create" style="cursor:pointer">Criar eventos</a>
-        </li>
-        <li class="nav-item">
-          <form action="/logout" method="post">
-            @csrf
-            <a class="nav-link" style="cursor:pointer" href="/" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
-            {{--closest('form') fecha o formulario mais perto--}}
-          </form>
-        </li>
+      @auth
+                {{--auth serve pra mostrar coisas pra quem tá logado--}}
+                  <li class="nav-item">
+                    <a class="nav-link" href="/dashboard" style="cursor:pointer">MEUS EVENTOS</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/create">CRIAR EVENTOS</a>
+                  </li>
+                  <li class="nav-item">
+                    <form action="/logout" method="post">
+                      @csrf
+                      <a class="nav-link logout" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">SAIR</a>
+                      {{--closest('form') fecha o formulario mais perto--}}
+                    </form>
+                  </li>
+              @endauth
       </ul>       
     </div>
   </nav>
-  <div class="container col-md-8 " style="margin-right: 13%;margin-left:  13%">
-    @if(empty($user))
+  <main>
+  <div id="event-create-conteiner" class="col-md-6 offset-md-3">
+        @if(empty($user))
     <h1 class="col-md-8 m-auto" style="width: max-content;">Cadastro de Usuario</h1>
     @else
     <h1 class="col-md-8 m-auto" style="width: max-content;">ATUALIZAR USUÁRIO</h1>
@@ -141,6 +145,7 @@
       </a>
   </div>
   </div>
+  </main>
 
 
   <!--SCRIPTS-->

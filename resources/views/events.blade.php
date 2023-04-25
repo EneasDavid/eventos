@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
   <title>Host Event</title>
   <!--CSS-->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <!--defer faz com que o js seja executado dps q o html for executado-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"
@@ -18,7 +18,7 @@
     <body>
         <!--NAVBAR-->
         <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">HostEvent</a>
+            <a class="navbar-brand logo" href="/">HostEvent</a>
             <form action="/" method="get" class="form-inline my-2 my-lg-0">
               <input name="search" class="form-control mr-sm-2" type="text" aria-label="Search">
             </form>  
@@ -33,17 +33,10 @@
                 @auth
                             {{--auth serve pra mostrar coisas pra quem tá logado--}}
                             <li class="nav-item">
-                                <a class="nav-link" href="/dashboard" style="cursor:pointer">Meus eventos</a>
+                                <a class="nav-link" href="/dashboard" style="cursor:pointer">MEUS EVENTOS</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" href="/create">Criar eventos</a>
-                            </li>
-                            <li class="nav-item">
-                                <form action="/logout" method="post">
-                                @csrf
-                                    <a class="nav-link" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
-                                    {{--closest('form') fecha o formulario mais perto--}}
-                                </form>
+                            <a class="nav-link" href="/create">CRIAR EVENTOS</a>
                             </li>
                         @endauth
                         @guest
@@ -55,6 +48,18 @@
                                 <a class="nav-link" onclick="chamaPopUp()" style="cursor:pointer">CADASTRAR</a>
                             </li>
                         @endguest
+                        <li class="nav-item">
+                            <button class="nav-link semEstilo" id="get-location">POR PERTO</button>
+                        </li>
+                        @auth
+                        <li class="nav-item">
+                                <form action="/logout" method="post">
+                                @csrf
+                                    <a class="nav-link logout" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">SAIR</a>
+                                    {{--closest('form') fecha o formulario mais perto--}}
+                                </form>
+                            </li>
+                        @endauth
             </ul>       
          </div>
         </nav>
@@ -228,38 +233,10 @@
         <br>
         <br>
         <br>
-        @if(empty($_GET['s']))
-        <div class="modal pagina aparecer" id="modalExemplo" tabindex="-1" role="dialog" style="margin: 0!important;" aria-labelledby="exampleModalLabel" aria-hidden="true" popUp-localizar-tag> 
-            <div class="wrapper">
-                <div class="container" style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
-                    <div style="display: flex;flex-direction: column;justify-content: space-around;">
-                        <button type="button" class="btn-close btn-close-white" aria-label="Close" data-dismiss="modal" style="width: inherit;" onclick="removerlocalizarPopUp()"></button>
-                        <button id="get-location" onclick="removerlocalizarPopUp()">LOCALIZAR</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
         <div class="col-md-12 centered my-auto" style="width: max-content;margin-right:10%;margin-left:10%">
         <a type="submit" href="/create" class="btn btn-primary btn-lg">Nenhum evento disponivel.</br>Click aqui para criar um!</a>
         </div>
         @else
-        @if(empty($_GET['s']))
-            @if(empty($busca))
-            <div class="modal pagina aparecer" id="modalExemplo" tabindex="-1" role="dialog" style="margin: 0!important;" aria-labelledby="exampleModalLabel" aria-hidden="true" popUp-localizar-tag> 
-                <div class="wrapper">
-                    <div class="container" style="display: flex;flex-direction: column;align-items: center;justify-content: space-around;">
-                        <div style="display: flex;flex-direction: column;justify-content: space-around;">
-                            <button type="button" class="btn-close btn-close-white" aria-label="Close" data-dismiss="modal" style="width: inherit;" onclick="removerlocalizarPopUp()"></button>
-                            <button id="get-location" onclick="removerlocalizarPopUp()">LOCALIZAR</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-        @endif
         <div style="margin-right:10%;margin-left: 10%;display: flex;flex-wrap: wrap;justify-content: flex-start;">
         @foreach ($events as $event)
             <a style="height: 190px;width: 32%;" href="/event/{{$event->id}}">

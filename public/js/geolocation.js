@@ -1,4 +1,5 @@
 let locationButton = document.getElementById("get-location");
+
 if('geolocation' in navigator){
     const watcher = navigator.geolocation.watchPosition( function (position){
         locationButton.addEventListener("click", () => {
@@ -93,7 +94,6 @@ if('geolocation' in navigator){
                     break;
                 case 'Tocantins':
                     $uf="TO";
-                    break;
             }
             urlParams.set('s',$uf);
             window.location.search = urlParams;

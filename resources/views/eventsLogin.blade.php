@@ -18,7 +18,7 @@
     <body>
         <!--NAVBAR-->
         <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">HostEvent</a>
+            <a class="navbar-brand logo" href="/">HostEvent</a>
             <form action="/" method="get" class="form-inline my-2 my-lg-0">
               <input name="search" class="form-control mr-sm-2" type="text" aria-label="Search">
             </form>  

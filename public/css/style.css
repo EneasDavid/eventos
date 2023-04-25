@@ -1,3 +1,12 @@
+html{
+  height: -webkit-fill-available;
+}
+body{
+  background-image: radial-gradient(circle at 14.64% -11.24%, #ade5ff 0, #7dcefb 25%, #3cb5f2 50%, #009ce9 75%) !important;
+}
+.logout:hover{
+  color:#e18f8f !important;
+}
 ul li a{
     color: var(--bs-navbar-brand-color);
     text-decoration: none;
@@ -183,6 +192,27 @@ button{
 .overlay_btn{
     background-color: #163b6b;
     color: #fff;
+  }
+  .btn-primary{
+    background:#212529 !important;
+    border-color:#212529!important ;
+    box-shadow: -1px 3px 20px 0px #176d7a8f;
+  }
+  .offset-md-3 {
+    margin-left: 15%;
+    margin-right: 15% !important;
+}
+  nav form{
+    width: 50%;
+  }
+  .logo{
+    font-weight: 800;
+    letter-spacing: -.01em;
+    margin-left: 1rem;
+  }
+  .semEstilo{
+    background-color:#212529;
+    border: none;
   }
 .sign-in-container{
     position: absolute;
