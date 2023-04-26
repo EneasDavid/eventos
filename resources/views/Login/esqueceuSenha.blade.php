@@ -17,7 +17,7 @@
     <!--Link Css-->
 </head>
 
-<body>
+<body style="height: -webkit-fill-available;">
   <!--NAVBAR-->
   <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand logo" href="/">HostEvent</a>
@@ -129,21 +129,31 @@
         })
         </script>
         </div>
-        <div class="container col-md-6 form-container ">
+        <div class="form-container ">
           @if (session('msg'))
           <p class="alert alert-danger">{{session('msg')}}</p>
           @endif
-          <h1 class="mb-5 m-auto">Redefinir Senha</h1>
-          <form class="col-md-8 m-auto confirmaEmail" action="{{route('recSenhaToEmail')}}" method="POST">
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="col-md-12 centered my-auto" style="width: max-content;margin-right:10%;margin-left:10%">
+            <h1 class="mb-4 m-auto titulo">Redefinir Senha</h1>
+            <form class="col-md-10 m-auto confirmaEmail" action="{{route('recSenhaToEmail')}}" method="POST">
             @csrf
             <div class="mb-3">
-              <label for="">Confirme seu email</label>
+              <label for=""><strong>Confirme seu email</strong></label>
               <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Email:" required>
             </div>
             <div class="d-flex justify-content-center">
               <button type="submit" class="btn btn-primary mb-3 align-center" onclick="troca" id="EnviarEmail">Enviar</button>
             </div>
           </form>
+          </div>
         </div>
   <!--SCRIPTS-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

@@ -108,7 +108,15 @@ input[type=number] {
  appearance: textfield;
 
 }
-
+tbody tr{
+  background:#cdc5bb9c;
+}
+tbody th,th a{
+  color:white;
+}
+th a{
+  --bs-btn-padding-y: none !important;
+}
 .aparecer {
   display: flex !important;
 }
@@ -204,6 +212,10 @@ button{
 }
   nav form{
     width: 50%;
+  }
+  .titulo{
+    font-weight: 800;
+    letter-spacing: -0.03em;
   }
   .logo{
     font-weight: 800;
