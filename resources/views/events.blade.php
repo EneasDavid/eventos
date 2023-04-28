@@ -239,21 +239,19 @@
         @else
         <div style="margin-right:10%;margin-left: 10%;display: flex;flex-wrap: wrap;justify-content: flex-start;">
         @foreach ($events as $event)
-            <a style="height: 190px;width: 32%;" href="/event/{{$event->id}}">
-                <div class="container marketing" style="height: 190px;width: 300px;">   
-                        <div class="row featurette">
-                        <div style="color: #000;">
-                            <div class="img-box">
-                                <img class="img-event-post" src="/img/events/{{$event->imagem}}" alt="{{$event->title}}"></img>
-                            </div>
-                            <div class="p-2 d-flex flex-column  align-items-center border border-secondary rounded" style="position: relative !important;background: white;@php if(isset($event->imagem)) echo 'margin-top: -10px;' @endphp">
-                                <p class="estiloFont"><b>{{$event->cidade}} ° {{date('d/m/y', strtotime($event->date))}} | {{date('h:m', strtotime($event->time))}}</b></p>
-                                <p class="estiloFont" class="truncate-1l" style="display: flex;justify-content: space-around;" ><b>{{$event->nomeEvento}}</b></p>
-                            </div>
-                        </div>
+        <a href="/event/{{$event->id}}">
+            <div class="card-container">
+                <div class="card altura-img">
+                <div class="imagem-texto">
+                    <img src="/img/events/{{$event->imagem}}" alt="{{$event->title}}">
+                    <div class="texto">
+                    <p class="estiloFont"><b>{{$event->cidade}} ° {{date('d/m/y', strtotime($event->date))}} | {{date('h:m', strtotime($event->time))}}</b></p>
+                    <p class="estiloFont truncate-1l" style="display: flex;justify-content: space-around;"><b>{{$event->nomeEvento}}</b></p>    
                     </div>
-                </div>    
-            </a>
+                </div>
+                </div>
+            </div>    
+            </a>
         @endforeach
         @if ($busca)
             <a style="position: static;height: 60px;" href="/">Ver todos os eventos</a>
