@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="pt-br" style="height: unset !important;">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,52 +10,51 @@
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <!--CSS -->
 </head>
-
 <body> 
-        <!--NAVBAR-->
-        <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand logo" href="/">HostEvent</a>
-            <!--SÓ APARECE NO CELULAR-->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>        
-            <!--LINKS-->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="float: right;">
-                @auth
-                {{--auth serve pra mostrar coisas pra quem tá logado--}}
-                  <li class="nav-item">
-                    <a class="nav-link" href="/dashboard" style="cursor:pointer">MEUS EVENTOS</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="/create">CRIAR EVENTOS</a>
-                  </li>
-                  <li class="nav-item">
-                    <form action="/logout" method="post">
-                      @csrf
-                      <a class="nav-link logout" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">SAIR</a>
-                      {{--closest('form') fecha o formulario mais perto--}}
-                    </form>
-                  </li>
-              @endauth
-            </ul>       
-         </div>
-        </nav>
-      <h1 class="col-md-8 m-auto" style="width: max-content;">Criar</h1>
-      <div id="event-create-conteiner" class="col-md-6 offset-md-3">
-        @if ($errors->any())
-        <div>
-          <div class="alert alert-danger">
-            <ul>
-              @foreach ($errors->all() as $error)
+  <!--NAVBAR-->
+  <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand logo" href="/">HostEvent</a>
+     <!--SÓ APARECE NO CELULAR-->
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!--SÓ APARECE NO CELULAR-->
+    <!--LINKS-->
+    <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: flex-end;">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="float: right;">
+        @auth
+        {{--auth serve pra mostrar coisas pra quem tá logado--}}
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard" style="cursor:pointer">MEUS EVENTOS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/create">CRIAR EVENTOS</a>
+        </li>
+        <li class="nav-item">
+          <form class="bform" action="/logout" method="post">
+            @csrf
+            <a class="nav-link logout" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">SAIR</a>
+            {{--closest('form') fecha o formulario mais perto--}}
+          </form>
+        </li>
+        @endauth
+      </ul>       
+    </div>
+  </nav>
+  <h1 class="col-md-8 m-auto" style="width: max-content;">CRIE SEU EVENTO</h1>
+  <div id="event-create-conteiner" class="col-md-6 offset-md-3">
+    @if ($errors->any())
+      <div>
+        <div class="alert alert-danger">
+          <ul>
+            @foreach ($errors->all() as $error)
               <li>{{ $error }}</li>
-              @break;
-              @endforeach
-            </ul>
-          </div>
+              @break
+            @endforeach
+          </ul>
         </div>
-        @endif
-        <h1>Crie seu evento</h1>
+      </div>
+    @endif
         <form action="/events" method="POST" enctype="multipart/form-data">
           @csrf
         {{--Diretiva obrigatoria no LARAVEL, senão não permite adicionar dados no bd--}}
@@ -151,8 +149,6 @@
   <script 
   src = "https://code.jquery.com/jquery-3.4.1.min.js" integridade = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin = "anonymous" > </script>
   <script src="js/consultaCEP.js"></script>
-
-
 </body>
 
 </html>

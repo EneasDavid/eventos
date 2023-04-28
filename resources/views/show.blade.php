@@ -32,7 +32,7 @@
                                 <a class="nav-link" href="/create" style="cursor:pointer">Criar eventos</a>
                             </li>
                             <li class="nav-item">
-                                <form action="/logout" method="post">
+                                <form class="bform" action="/logout" method="post">
                                 @csrf
                                     <a class="nav-link logout" style="cursor:pointer" href="/" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
                                     {{--closest('form') fecha o formulario mais perto--}}
@@ -80,7 +80,7 @@
           @elseif(isset($event->integranteQuantidade) and $event->integranteQuantidadePreenchidas==$event->integranteQuantidade)
                 <p><b>EVENTO LOTADO</b></p>
           @elseif (!$JaParticipa)
-              <form action="/event/join/{{$event->id}}" method="POST">
+              <form class="bform" action="/event/join/{{$event->id}}" method="POST">
                 @csrf 
                 <a class="btn btn-primary mb-3" href="/event/join/{{$event->id}}" 
                 id="event-submit" 
@@ -105,8 +105,11 @@
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
     integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
-    crossorigin="anonymous"></script>
-    <script src="/js/popUp.js"></script>
+    crossorigin="anonymous"></script>  <script src="js/jquery.js"></script>
+  <script src="js/script.js"></script>
+  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script src = "https://code.jquery.com/jquery-3.4.1.min.js" integridade = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin = "anonymous" > </script>
+  <script src="js/consultaCEP.js"></script>
 
 
 </body>

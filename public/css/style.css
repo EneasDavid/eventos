@@ -41,6 +41,15 @@ ul li a{
     color: rgb(0, 151, 255);
     font-weight: 700;
   }
+  form{
+    background-color: rgb(255 0 99 / 34%);
+    border-radius: 45px;
+    padding: .9rem;
+  }
+  .bform{
+    background: none !important;
+    padding: inherit !important;
+  }
   a{
     text-decoration:none !important;
   }
@@ -410,5 +419,55 @@ a .container{
 @media (min-width: 768px) and (max-width: 1023px) {
   .card {
     width: calc(50% - 10px);
+  }
+}
+.container {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  gap: 20px;
+  height: auto !important;
+  justify-items: center;
+  max-width: none !important;
+}
+.dashbord-events-container{
+  width: inherit !important;
+}
+.left{
+  background-color: rgb(255 0 99 / 34%) !important;
+  border-radius: 30px;
+  padding: 20px;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: inherit !important;
+  margin-right: 2rem;
+  padding: 1rem;
+}
+
+.right h1 {
+  margin-top: 0;
+}
+
+.left, .right {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .left, .right {
+    width: 100%;
+    height: auto;
   }
 }

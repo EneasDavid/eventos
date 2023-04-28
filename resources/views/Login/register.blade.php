@@ -33,7 +33,7 @@
                     <a class="nav-link" href="/create">CRIAR EVENTOS</a>
                   </li>
                   <li class="nav-item">
-                    <form action="/logout" method="post">
+                    <form class="bform" action="/logout" method="post">
                       @csrf
                       <a class="nav-link logout" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">SAIR</a>
                       {{--closest('form') fecha o formulario mais perto--}}
@@ -43,14 +43,12 @@
       </ul>       
     </div>
   </nav>
-  <main>
-  <div id="event-create-conteiner" class="col-md-6 offset-md-3">
-        @if(empty($user))
-    <h1 class="col-md-8 m-auto" style="width: max-content;">Cadastro de Usuario</h1>
+    @if(empty($user))
+    <h1 class="col-md-8 m-auto" style="width: max-content;">CADASTRO DE USUARIO</h1>
     @else
     <h1 class="col-md-8 m-auto" style="width: max-content;">ATUALIZAR USUÁRIO</h1>
     @endif
-    <div class="col-md-8 m-auto">
+    <div id="event-create-conteiner" class="col-md-6 offset-md-3">
       @if ($errors->any())
           <div>
             <div class="alert alert-danger">
@@ -68,23 +66,22 @@
           {{ session('danger') }}
         </div>
       @endif 
-   </div>  
    @if(empty($user))
-     <form class="col-md-8 m-auto" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
+     <form action="{{route('register')}}" enctype="multipart/form-data" method="POST">
    @else
-     <form class="col-md-8 m-auto" action="/update?id={{$user->id}}" enctype="multipart/form-data" method="POST">
+     <form action="/update?id={{$user->id}}" enctype="multipart/form-data" method="POST">
      @method('PUT')
    @endif
       @csrf
       </hr><hr>
-      <div class="mb-3">
+      <div class="mb-3 col-md-12">
         <label for="imagem">Foto do usuario</label>
         <input type="file" class="form-controll-file" id="imagem" name="foto" value='{{!empty($user)?"$user->foto":""}}'>
       </div>      
-      <div class="mb-3">
+      <div class="mb-3 col-md-12">
          <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="Digite seu nome:*" value='{{!empty($user)?"$user->name":""}}'>
       </div>      
-      <div class="mb-3">
+      <div class="mb-3 col-md-12">
          <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="E-mail:*" value='{{!empty($user)?"$user->email":""}}'>
       </div>
       @if(empty($user))
@@ -137,13 +134,12 @@
       <button class="btn btn-primary mb-3" type="submit">{{!empty($user)?"Atualizar":"Cadastra-se"}}</button>
   </form>
     <a class="btn btn-danger mb-3" href="/user/{{$user->id}}">
-       <form action="/user/{{$user->id}}" method="POST">
+       <form class="bform" action="/user/{{$user->id}}" method="POST">
        @csrf
        @method('DELETE')
       </form>
       DELETAR
       </a>
-  </div>
   </div>
   </main>
 

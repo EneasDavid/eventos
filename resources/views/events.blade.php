@@ -19,7 +19,7 @@
         <!--NAVBAR-->
         <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand logo" href="/">HostEvent</a>
-            <form action="/" method="get" class="form-inline my-2 my-lg-0">
+            <form class="bform" action="/" method="get" class="form-inline my-2 my-lg-0">
               <input name="search" class="form-control mr-sm-2" type="text" aria-label="Search">
             </form>  
             <!--SÓ APARECE NO CELULAR-->
@@ -53,7 +53,7 @@
                         </li>
                         @auth
                         <li class="nav-item">
-                                <form action="/logout" method="post">
+                                <form class="bform" action="/logout" method="post">
                                 @csrf
                                     <a class="nav-link logout" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">SAIR</a>
                                     {{--closest('form') fecha o formulario mais perto--}}
@@ -68,7 +68,7 @@
             <div class="container">
                 <button type="button" class="btn-close btn-close-white" aria-label="Close" data-dismiss="modal" style="width: inherit;" onclick="removerPopUp()"></button>
                 <div class="sign-up-container">
-                    <form class="form" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
+                    <form class="form" style="border-radius: 0;" action="{{route('register')}}" enctype="multipart/form-data" method="POST">
                     @if ($errors->any())
                         <div>
                             <div class="alert alert-danger">
@@ -142,7 +142,7 @@
                     </form>
                 </div>
                 <div class="sign-in-container">
-                    <form class="form" action="{{route('login.login')}}" method="post">
+                    <form class="form" style="border-radius: 0;" action="{{route('login.login')}}" method="post">
                         @if ($errors->any())
                         <div>
                             <div class="alert alert-danger">
