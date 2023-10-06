@@ -73,7 +73,7 @@
                     <div class="mb-3 row">
                         <label for="date"><strong>Dados do Evento</strong></label>
                         <div class="col-md-12 mb-4">
-                            <label for="imagem">Foto do evento *</label>
+                            <label for="imagem">Foto do evento*</label>
                             <input type="file" class="form-control-file" id="imagem" name="imagem" >
                         </div>
                         <div class="col-md-8 mb-4">
@@ -87,7 +87,7 @@
                             <input  class="form-control" type="date" name="date" id="date">
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="date">Horário do evento *</label>
+                            <label for="date">Horario do evento *</label>
                             <input class="form-control" type="time" id="appt" name="time" smin="00:01" max="23:59" required>          
                         </div>
                     </div>
@@ -120,16 +120,16 @@
                         <div class="from-grup col-md-6">
                             <label for="items"><strong>Items</strong></label>
                             <div class="from-grup">
-                                <input style="width: auto!important;" type="checkbox" name="items[]" value="palco">Palco
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="palco">palco
                             </div>
                             <div class="from-grup">
-                                <input style="width: auto!important;" type="checkbox" name="items[]" value="bebidas">Bebidas
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="bebidas">bebidas
                             </div>
                             <div class="from-grup">
-                                <input style="width: auto!important;" type="checkbox" name="items[]" value="brindes">Brindes
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="brindes">brindes
                             </div>
                             <div class="from-grup">
-                                <input style="width: auto!important;" type="checkbox" name="items[]" value="cadeiras">Cadeiras
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="cadeiras">cadeiras
                             </div>
                         </div>
                         <div class="form-grup col-md-6" style="display:grid">
@@ -224,7 +224,7 @@
                                  <form action="/event/removeJoin/{{$participant->id}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger delete-btn">Sair</button>
+                                    <button>sair</button>
                                 </form>
                         </th>
                     </tr>

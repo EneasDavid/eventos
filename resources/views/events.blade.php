@@ -139,7 +139,7 @@
                 </div>
                 <div class="sign-in-container">
                     <form class="form" action="{{route('login.login')}}" method="post">
-                        @if ($errors->any() && !in_array('Os campos marcados com * são obrigatórios para cadastro!', $errors->all()))
+                        @if ($errors->any() && !in_array('Os campos marcados com * são obrigatorios para cadastro!', $errors->all()))
                         <div>
                             <div class="alert alert-danger">
                                 <ul>
@@ -186,7 +186,7 @@
                     </div>
                     <div class="overlay-right">
                         <h1>OLÁ AMIGO</h1>
-                        <p>Ainda não tem uma conta? Cadastre-se agora e receba acesso a funcionalidades exclusivas a usuarios do nosso site!</p>
+                        <p>Ainda não tem uma conta? Cadastre-se agora e recessa acesso a funcionalidades exclusivas a usuarios do nosso site!</p>
                         <button id="signUp" class="overlay_btn">CADASTRE-SE</button>
                     </div>
                 </div>
@@ -237,7 +237,7 @@
         <br>
         <br>
         <div class="col-md-12 centered my-auto" style="width: max-content;margin-right:10%;margin-left:10%">
-        <a type="submit" href="/create" class="btn btn-primary btn-lg">Nenhum evento disponível.</br>Clique aqui para criar um!</a>
+        <a type="submit" href="/create" class="btn btn-primary btn-lg">Nenhum evento disponivel.</br>Click aqui para criar um!</a>
         </div>
         @else
         <div style="margin-right:10%;margin-left: 10%;display: flex;flex-wrap: wrap;justify-content: flex-start;">

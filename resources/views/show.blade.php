@@ -51,6 +51,7 @@
         <span class="font" style="display: flex;justify-content: space-around;color: black;">{{$event->nomeEvento}} - {{$semanaD[date('l', strtotime($event->date))]}}, {{date('d/m/y', strtotime($event->date))}}</span>
         <hr></hr>
         <p class="m-0"><b>{{$event->cidade}} - {{$event->uf}}</b></p>
+        <p class="m-0">{{$event->rua}} {{$event->bairro}} {{$event->complemento}} - {{$event->cep}}</p>
         <p>às {{date('h:i', strtotime($event->time))}} Hrs</p>
         <hr></hr>
         <span class="font" style="color: black;">Descrição do Evento</span>
@@ -62,7 +63,7 @@
           <div style="display: flex;flex-direction: column;align-items: stretch;">
           <p><b>Itens</b></p>
           @if(empty($event->items))
-          <p><i>Não há itens nesse evento</i></p>
+          <p><i>Não há intens nesse evento</i></p>
           @else
           @foreach ($event->items as $item)
             <li><i>{{$item}}</i></li>

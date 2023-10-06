@@ -18,7 +18,7 @@
     <body>
         <!--NAVBAR-->
         <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand logo" href="/">HostEvent</a>
+            <a class="navbar-brand logo" href="/">HostEventoooo</a>
             <form action="/" method="get" class="form-inline my-2 my-lg-0">
               <input name="search" class="form-control mr-sm-2" type="text" aria-label="Search">
             </form>  
@@ -178,7 +178,7 @@
                     </div>
                     <div class="overlay-right">
                         <h1>OLÁ AMIGO</h1>
-                        <p>Ainda não tem uma conta? Cadastre-se agora e receba acesso a funcionalidades exclusivas a usuarios do nosso site!</p>
+                        <p>Ainda não tem uma conta? Cadastre-se agora e recessa acesso a funcionalidades exclusivas a usuarios do nosso site!</p>
                         <button id="signUp" class="overlay_btn">CADASTRE-SE</button>
                     </div>
                 </div>
@@ -226,7 +226,7 @@
                     <div class="mb-3 row">
                         <label for="date"><strong>Dados do Evento</strong></label>
                         <div class="col-md-12 mb-4">
-                            <label for="imagem">Foto do evento *</label>
+                            <label for="imagem">Foto do evento*</label>
                             <input type="file" class="form-control-file" id="imagem" name="imagem" >
                         </div>
                         <div class="col-md-8 mb-4">
@@ -240,7 +240,7 @@
                             <input  class="form-control" type="date" name="date" id="date">
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label for="date">Horário do evento *</label>
+                            <label for="date">Horario do evento *</label>
                             <input class="form-control" type="time" id="appt" name="time" smin="00:01" max="23:59" required>          
                         </div>
                     </div>
@@ -273,16 +273,16 @@
                         <div class="from-grup col-md-6">
                             <label for="items"><strong>Items</strong></label>
                             <div class="from-grup">
-                                <input style="width: auto!important;" type="checkbox" name="items[]" value="palco">Palco
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="palco">palco
                             </div>
                             <div class="from-grup">
-                                <input style="width: auto!important;" type="checkbox" name="items[]" value="bebidas">Bebidas
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="bebidas">bebidas
                             </div>
                             <div class="from-grup">
-                                <input style="width: auto!important;" type="checkbox" name="items[]" value="brindes">Brindes
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="brindes">brindes
                             </div>
                             <div class="from-grup">
-                                <input style="width: auto!important;" type="checkbox" name="items[]" value="cadeiras">Cadeiras
+                                <input style="width: auto!important;" type="checkbox" name="items[]" value="cadeiras">cadeiras
                             </div>
                         </div>
                         <div class="form-grup col-md-6" style="display:grid">
@@ -322,7 +322,7 @@
         <br>
         <br>
         <div class="col-md-12 centered my-auto" style="width: max-content;margin-right:10%;margin-left:10%">
-        <a type="submit" href="/create" class="btn btn-primary btn-lg">Nenhum evento disponível.</br>Clique aqui para criar um!</a>
+        <a type="submit" href="/create" class="btn btn-primary btn-lg">Nenhum evento disponivel.</br>Click aqui para criar um!</a>
         </div>
         @else
         <div style="margin-right:10%;margin-left: 10%;display: flex;flex-wrap: wrap;justify-content: flex-start;">

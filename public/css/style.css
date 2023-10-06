@@ -70,8 +70,6 @@ ul li a{
     height: 100%;
     -webkit-mask-image: -webkit-radial-gradient(center, white, black);
     border-radius: 0%;
-    border-top-right-radius: 7px;
-    border-top-left-radius: 7px;
     overflow: hidden;
     transition: border-radius 0.3s ease-in-out 0s;
 }
