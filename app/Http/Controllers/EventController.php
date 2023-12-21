@@ -263,13 +263,21 @@ class EventController extends Controller
             return view('show',['semanaD'=>$semanaDia,'usuario'=>$user,'event'=>$event,'eventOwner'=>$eventOwner,'JaParticipa'=>$existeUserJoin]);
         }
 
-        public function dashboard(){
-            $user=auth()->user();
-            $events=$user->events;
-            $eventAsParticipant=$user->eventAsParticipant;
-
-            return view('dashboard',['user'=>$user,'events'=>$events,'eventasparticipant'=>$eventAsParticipant]);
+        public function dashboard()
+        {
+            $user = auth()->user();
+            $events = $user->events;
+            $eventAsParticipant = $user->eventAsParticipant;
+            $itemsData = [];  // Adicione os dados dos itens conforme necessário
+        
+            return view('dashboard', [
+                'user' => $user,
+                'events' => $events,
+                'eventasparticipant' => $eventAsParticipant,
+                'itemsData' => $itemsData,  // Passe os dados dos itens para a visão
+            ]);
         }
+        
 
         public function deletar($id){
             $user=auth()->user();
