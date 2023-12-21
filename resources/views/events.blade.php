@@ -14,53 +14,53 @@
 </head>
 
 <body>
-    <!--NAVBAR-->
-    <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand logo" href="/">HostEvent</a>
-        <form action="/" method="get" class="form-inline my-2 my-lg-0">
-            <input name="search" class="form-control mr-sm-2" type="text" aria-label="Search">
-        </form>
-        <!--SÓ APARECE NO CELULAR-->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!--SÓ APARECE NO CELULAR-->
-        <!--LINKS-->
-        <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: flex-end;">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="float: right;">
+        <!--NAVBAR-->
+        <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand logo" href="/">HostEvent</a>
+            <form action="/" method="get" class="form-inline my-2 my-lg-0">
+              <input name="search" class="form-control mr-sm-2" type="text" aria-label="Search">
+            </form>  
+            <!--SÓ APARECE NO CELULAR-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--SÓ APARECE NO CELULAR-->
+            <!--LINKS-->
+            <div class="collapse navbar-collapse" id="navbarNav" style="justify-content: flex-end;">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="float: right;">
                 @auth
-                {{--auth serve pra mostrar coisas pra quem tá logado--}}
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboard" style="cursor:pointer">MEUS EVENTOS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/create">CRIAR EVENTOS</a>
-                </li>
-                @endauth
-                @guest
-                {{--guest serve pra mostrar coisas pra pessoas não logadas--}}
-                <li class="nav-item">
-                    <a class="nav-link" onclick="chamaPopUp()" style="cursor:pointer">LOGAR</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" onclick="chamaPopUp()" style="cursor:pointer">CADASTRAR</a>
-                </li>
-                @endguest
-                <li class="nav-item">
-                    <button class="nav-link semEstilo" id="get-location">POR PERTO</button>
-                </li>
-                @auth
-                <li class="nav-item">
-                    <form action="/logout" method="post">
-                        @csrf
-                        <a class="nav-link logout" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">SAIR</a>
-                        {{--closest('form') fecha o formulario mais perto--}}
-                    </form>
-                </li>
-                @endauth
-            </ul>
-        </div>
-    </nav>
+                            {{--auth serve pra mostrar coisas pra quem tá logado--}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard" style="cursor:pointer">MEUS EVENTOS</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="/create">CRIAR EVENTOS</a>
+                            </li>
+                        @endauth
+                        @guest
+                        {{--guest serve pra mostrar coisas pra pessoas não logadas--}}
+                        <li class="nav-item">
+                                <a class="nav-link" onclick="chamaPopUp()" style="cursor:pointer">LOGAR</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" onclick="chamaPopUp()" style="cursor:pointer">CADASTRAR</a>
+                            </li>
+                        @endguest
+                        <li class="nav-item">
+                            <button class="nav-link semEstilo" id="get-location">POR PERTO</button>
+                        </li>
+                        @auth
+                        <li class="nav-item">
+                                <form action="/logout" method="post">
+                                @csrf
+                                    <a class="nav-link logout" href="/" style="cursor:pointer" onclick="event.preventDefault(); this.closest('form').submit();">SAIR</a>
+                                    {{--closest('form') fecha o formulario mais perto--}}
+                                </form>
+                            </li>
+                        @endauth
+            </ul>       
+         </div>
+        </nav>
     <div class="modal pagina" id="modalExemplo" tabindex="-1" role="dialog" style="margin: 0!important;" aria-labelledby="exampleModalLabel" aria-hidden="true" popUp-cadastrar-tag>
         <div class="wrapper">
             <div class="container">
@@ -274,17 +274,16 @@
         @endif
     </div>
     @endif
-    <!--SCRIPTS-->
+    <div id="location-div"></div>
 
-    <script src="js/jquery.js"></script>
-    <script src="js/script.js"></script>
-    <script>
-        window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
-    </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integridade="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"> </script>
-    <script src="js/consultaCEP.js"></script>
-    <script src="js/popUp.js"></script>
-    <script src="js/geolocation.js"></script>
+  <!--SCRIPTS-->
+  <script src="js/jquery.js"></script>
+  <script src="js/script.js"></script>
+  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script src = "https://code.jquery.com/jquery-3.4.1.min.js" integridade = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin = "anonymous" > </script>
+  <script src="js/consultaCEP.js"></script>
+  <script src="js/popUp.js"></script>
+  <script src="js/geolocation.js"></script>
 </body>
 
 </html>

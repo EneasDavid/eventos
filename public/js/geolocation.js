@@ -115,4 +115,3 @@ if('geolocation' in navigator){
 }else{
     alert ('ops, não foi possível pegar localização')
 }
-
