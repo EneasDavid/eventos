@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="col-md-10 offset-md-1 dashbord-events-container">
-                    @if(count($events)>0) 
+                    @if(count($events)>0)
                         <table class="table">
                             <thead>
                                 <tr>
@@ -103,7 +103,7 @@
                                                     <button type="submit" class="btn btn-danger delete-btn">Deletar</button>
                                                 </form>
                                             </a> |
-                                            <a href="/event/end/{{$event->id}}">Finalizar</a> 
+                                            <a href="/event/end/{{$event->id}}">Finalizar</a>
                                         </th>
                                         @else
                                             <th>Evento Finalizado</th>
@@ -164,20 +164,6 @@
     <script src="js/consultaCEP.js"></script>
     <script src="js/popUp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        // Crie um gráfico de pizza para mostrar a distribuição de itens
-        var itemsChart = new Chart(document.getElementById('itemsChart').getContext('2d'), {
-            type: 'pie',
-            data: {
-                labels: {!! json_encode(['Palco', 'Bebidas', 'Brindes', 'Cadeiras']) !!},
-                datasets: [{
-                    data: {!! json_encode($itemsData) !!},
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50'],
-                }],
-            },
-        });
-    </script>
 
 </body>
 
