@@ -60,7 +60,7 @@
             <div style="display: flex;flex-direction: column;width: 75%;padding-left: 1rem;margin-top: 10%;align-items: center;">
                 <div style="display: flex;width: 92%;">
                     <div style="width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
-                        @if(count($events)>0)
+                        @if($maximoItem>0 )
                         <table class="table">
                             <thead style="border-style:none !important">
                                 <tr>
@@ -76,10 +76,10 @@
                                         <div style="display: grid;justify-items: center;justify-content: space-around;">
                                             <div class="slider-wrapper">
                                                 <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
-                                                    @php
+                                                @php
                                                     $porcentagem=($items['cadeiras']/$maximoItem)*100;
-                                                    echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['cadeiras'].'" step="1">'
-                                                    @endphp
+                                                    echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['cadeiras'].'" step="1">';
+                                                @endphp
                                                 </div>
                                             </div>
                                             <div>
@@ -140,7 +140,7 @@
     @endif
     </div>
     <div style="margin-left: 0.09rem;width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
-        @if (count($eventasparticipant)>0)
+        @if ($maximoEvento>0)
         <table class="table" style="border-style:none !important">
             <thead style="border-style:none !important">
                 <tr>
