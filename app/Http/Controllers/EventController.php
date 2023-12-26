@@ -325,6 +325,13 @@ class EventController extends Controller
                 $situacaoEvento['emAndamento'] += 1;
             }
         }
+        foreach($eventAsParticipant as $eventoDaVez){
+            if($eventoDaVez->finalizada){
+                $situacaoEvento['concluido'] += 1;
+            }else{
+                $situacaoEvento['emAndamento'] += 1;
+            }
+        }
         return view('dashboard', [
             'user' => $user,
             'events' => $events,
