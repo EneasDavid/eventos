@@ -67,15 +67,15 @@
                                     <th scope="col">CADEIRA</th>
                                     <th scope="col">BEBIDA</th>
                                     <th scope="col">BRINDE</th>
-                                    <th scope="col">COMIDA</th>
+                                    <th scope="col">PALCO</th>
                                 </tr>
                             </thead>
                             <tbody>
                              <tr>
-                                    <th scope="row">0</th>
-                                    <th scope="row">0</th>
-                                    <th scope="row">0</th>
-                                    <th scope="row">0</th>
+                                    <th scope="row">{{$items['cadeiras']}}</th>
+                                    <th scope="row">{{$items['bebidas']}}</th>
+                                    <th scope="row">{{$items['brindes']}}</th>
+                                    <th scope="row">{{$items['palco']}}</th>
                                 </tr>
                             </tbody>
                         </table>
@@ -94,8 +94,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">0</th>
-                                    <th scope="row">0</th>
+                                    <th scope="row">{{$situacaoEvento['concluido']}}</th>
+                                    <th scope="row">{{$situacaoEvento['emAndamento']}}</th>
                                 </tr>
                             </tbody>
                         </table>
