@@ -42,7 +42,7 @@
         @endif
 
         <div style="display: flex; flex-direction: row; height:inherit;margin-top: 1rem;">
-            <div style="display: grid;justify-items: center;width: min-content;background: white;padding: 1.3rem;border-radius: 3rem;">
+            <div style="display: grid;align-items: center;justify-items: center;width: min-content;background: white;padding: 1.3rem;border-radius: 3rem;">
                 @if(!empty($user->foto))
                 <label tabIndex="0" for="picture__input" type="file" class="picture" style="padding:0px!important;margin-top: 1rem;">
                     <img src="/img/usuarios/{{$user->foto}}" class="fotoPerfil" alt="Não foi possível carregar sua foto" style="height: 10rem;width: 10rem;">
@@ -58,9 +58,9 @@
                 <a class="btn btn-primary mb-3" style="height: fit-content;" href="/editarUsuario/{{$user->id}}">Editar</a>
             </div>
             <div style="display: flex;flex-direction: column;width: 75%;padding-left: 1rem;margin-top: 10%;align-items: center;">
-                <div style="display: flex;width: 92%;">
-                    <div style="width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
-                        @if($maximoItem>0 )
+            <div style="display: flex;width: 92%;">
+            @if($maximoItem>0 )
+            <div style="width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
                         <table class="table">
                             <thead style="border-style:none !important">
                                 <tr>
@@ -76,71 +76,69 @@
                                         <div style="display: grid;justify-items: center;justify-content: space-around;">
                                             <div class="slider-wrapper">
                                                 <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
-                                                @php
+                                                    @php
                                                     $porcentagem=($items['cadeiras']/$maximoItem)*100;
                                                     echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['cadeiras'].'" step="1">';
-                                                @endphp
+                                                    @endphp
                                                 </div>
                                             </div>
                                             <div>
                                                 <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['cadeiras'])}}</h7>
                                     </td>
-                    </div>
-                </div>
-                <td style="border-style:none !important">
-                    <div style="display: grid;justify-items: center;justify-content: space-around;">
-                        <div class="slider-wrapper">
-                            <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
-                                @php
-                                $porcentagem=($items['bebidas']/$maximoItem)*100;
-                                echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['bebidas'].'" step="1">'
-                                @endphp
-                            </div>
                         </div>
-                        <div>
-                            <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['bebidas'])}}</h7>
-                </td>
+                    </div>
+                    <td style="border-style:none !important">
+                        <div style="display: grid;justify-items: center;justify-content: space-around;">
+                            <div class="slider-wrapper">
+                                <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
+                                    @php
+                                    $porcentagem=($items['bebidas']/$maximoItem)*100;
+                                    echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['bebidas'].'" step="1">'
+                                    @endphp
+                                </div>
+                            </div>
+                            <div>
+                                <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['bebidas'])}}</h7>
+                    </td>
+                </div>
             </div>
+            <td style="border-style:none !important">
+                <div style="display: grid;justify-items: center;justify-content: space-around;">
+                    <div class="slider-wrapper">
+                        <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
+                            @php
+                            $porcentagem=($items['brindes']/$maximoItem)*100;
+                            echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['brindes'].'" step="1">'
+                            @endphp
+                        </div>
+                    </div>
+                    <div>
+                        <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['brindes'])}}</h7>
+            </td>
+        </div>
         </div>
         <td style="border-style:none !important">
             <div style="display: grid;justify-items: center;justify-content: space-around;">
                 <div class="slider-wrapper">
                     <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
                         @php
-                        $porcentagem=($items['brindes']/$maximoItem)*100;
-                        echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['brindes'].'" step="1">'
+                        $porcentagem=($items['palco']/$maximoItem)*100;
+                        echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['palco'].'" step="1">'
                         @endphp
                     </div>
                 </div>
                 <div>
-                    <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['brindes'])}}</h7>
+                    <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['palco'])}}</h7>
         </td>
+        </div>
+        </div>
+        </tr>
+        </tbody>
+        </table>
     </div>
-    </div>
-    <td style="border-style:none !important">
-        <div style="display: grid;justify-items: center;justify-content: space-around;">
-            <div class="slider-wrapper">
-                <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
-                    @php
-                    $porcentagem=($items['palco']/$maximoItem)*100;
-                    echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['palco'].'" step="1">'
-                    @endphp
-                </div>
-            </div>
-            <div>
-                <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['palco'])}}</h7>
-    </td>
-    </div>
-    </div>
-    </tr>
-    </tbody>
-    </table>
-    @else
-    <p>Você ainda não criou nenhum evento. <a href="/create">Criar evento</a></p>
     @endif
-    </div>
+    @if ($maximoEvento>0)
     <div style="margin-left: 0.09rem;width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
-        @if ($maximoEvento>0)
         <table class="table" style="border-style:none !important">
             <thead style="border-style:none !important">
                 <tr>
@@ -179,10 +177,8 @@
                 </tr>
             </tbody>
         </table>
-        @else
-        <p>Você ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
-        @endif
     </div>
+    @endif
     </div>
     <div style="display: flex;">
         <div style="width: 50% !important;">

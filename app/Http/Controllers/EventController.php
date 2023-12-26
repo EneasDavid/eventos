@@ -208,7 +208,7 @@ class EventController extends Controller
         $event->uf = $request->uf;
         $event->complemento = $request->complemento;
         $event->descricao = $request->descricao;
-        $event->items = $request->items;
+        $event->items = json_encode($request->items);
         $event->date = $request->date;
         $event->time = $request->time;
         $event->finalizada = 0;
