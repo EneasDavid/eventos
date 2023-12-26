@@ -14,14 +14,14 @@
         <div class="col-md-12 centered mx-auto ">
             <div style="display: flex;flex-direction: column;justify-content: space-between;align-items: center;">
                 <span class="navbar-brand logo">Event host</span>
-                <h1 class="titulo">Olá {{$destinatario->name}}, lembrete de evento: {{$event->title}}</h1>
+                <h1 class="titulo">Olá {{$destinatario->name}}, lembrete de evento: {{$event->nomeEvento}}</h1>
                 <br>
                 <br>
                 <h4><i>O evento está chegando! Veja os detalhes abaixo:</i></h4>
                 <p>Data do evento: {{$event->date}}</p>
-                <p>Local: {{$event->location}}</p>
+                <p>Local: {{$event->rua}}, {{$event->cidade}} - {{$event->uf}}</p>
                 <!-- Adicione mais detalhes do evento conforme necessário -->
-                <a href="{{url('/detalhes-evento/' . $eventId)}}" class="btn btn-primary mt-4">VER DETALHES</a>
+                <a href="http://127.0.0.1:8000/event/{{$eventId)}}" class="btn btn-primary mt-4">VER DETALHES</a>
             </div>
         </div>
     </div>

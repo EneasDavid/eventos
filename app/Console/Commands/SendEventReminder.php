@@ -9,8 +9,8 @@ use App\Mail\EventReminder;
 
 class SendEventReminder extends Command
 {
-    protected $signature = 'send:event-reminder';
-    protected $description = 'Send email reminders for upcoming events';
+    protected $signature = 'send:eventeHost';
+    protected $description = 'Lembrete do seu evento';
 
     public function handle()
     {
@@ -18,7 +18,7 @@ class SendEventReminder extends Command
 
         foreach ($events as $event) {
             Mail::to($event->organizer_email)->send(new EventReminder($event));
-            $this->info("Event reminder sent for event ID {$event->id}.");
+            $this->info("Este lembrete foi enviado pelo evento: {$event->nomeEvento}.");
         }
 
         $this->info('Event reminders sent successfully.');
