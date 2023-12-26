@@ -16,6 +16,14 @@ ul li a{
     margin: 0 auto !important;
     float: none !important;
 }
+th{
+    padding: .05rem .09rem !important;
+}
+th, td, tr {
+    font-size: x-small !important;
+    text-align: center;
+
+}
 .truncate-3l{
     display:-webkit-box;
     -webkit-line-clamp: 3;
@@ -99,11 +107,11 @@ ul li a{
   font-weight: 900;
   line-height: normal;
 }
-input[type=number]::-webkit-inner-spin-button { 
+input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  
+
 }
-input[type=number] { 
+input[type=number] {
  -moz-appearance: textfield;
  appearance: textfield;
 
@@ -147,7 +155,7 @@ body{
     position: absolute;
     width: 768px;
     min-height: 500px;
-    overflow: hidden;            
+    overflow: hidden;
 }
 .form{
     background: #ebecf0;
@@ -191,7 +199,7 @@ button{
 .form_btn{
     box-shadow: -5px -5px 10px #fff,
                 5px 5px 8px #babebc;
- 
+
 }
 .form_btn:active{
     box-shadow: inset 1px 1px 2px #babebc,
@@ -235,7 +243,7 @@ button{
     width: 50%;
     height: 100%;
     transition: all 0.5s;
-}   
+}
 .sign-up-container{
     position: absolute;
     left: 0;
@@ -243,7 +251,7 @@ button{
     height: 100%;
     opacity: 0;
     transition: all 0.5s;
-}  
+}
 .overlay-left{
     display: flex;
     flex-direction: column;
@@ -258,7 +266,7 @@ button{
     background-color: #33bbf0;
     color: #fff;
     transition: all 0.5s;
-}      
+}
 .overlay-right{
     display: flex;
     flex-direction: column;
@@ -272,7 +280,7 @@ button{
     background-color: #33bbf0;
     color: #fff;
     transition: all 0.5s;
-}     
+}
 .social-links{
     margin: 20px 0;
 }
@@ -303,7 +311,7 @@ span{
     border-radius: 50%;
     box-shadow:  -5px -5px 10px #fff,
                 5px 5px 8px #babebc;
-    cursor: pointer;            
+    cursor: pointer;
 }
 .social-links a{
     color: #000;
@@ -315,7 +323,7 @@ span{
 .social-links a:hover{
     color: rgb(75, 248, 84);
 }
- 
+
 .container.right-panel-active .sign-in-container{
     transform: translateX(100%);
     opacity: 0;

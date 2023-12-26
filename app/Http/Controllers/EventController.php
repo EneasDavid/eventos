@@ -24,7 +24,7 @@ class EventController extends Controller
         } else {
             $Events = Event::whereNotIn('finalizada', [1])->get();
         }
-        return view('eventsLogin', ['user' => $user, 'events' => $Events, 'busca' => $busca]);
+        return view('events', ['user' => $user, 'events' => $Events, 'busca' => $busca]);
     }
     public function loginForms(Request $request)
     {

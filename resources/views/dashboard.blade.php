@@ -34,105 +34,154 @@
             </ul>
         </div>
     </nav>
-
-    <h1 class="col-md-8 col-12 m-auto" style="width: max-content; padding-bottom: 3rem;">Meus eventos</h1>
-
-    <div class="col-md-10 offset-md-1 dashbord-events-container">
+    <div class="col-md-10 offset-md-1 dashbord-events-container" style="height: 90vh;">
         @if (session('msg'))
         <div class="alert alert-success">
             {{ session('msg') }}
         </div>
         @endif
 
-        <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-around;">
-            <div style="display: grid; justify-items: center;">
+        <div style="display: flex; flex-direction: row; height:inherit;margin-top: 1rem;">
+            <div style="display: grid;justify-items: center;width: min-content;background: white;padding: 1.3rem;border-radius: 3rem;">
                 @if(!empty($user->foto))
-                <label tabIndex="0" for="picture__input" type="file" class="picture" style="padding:0px!important">
-                    <img src="/img/usuarios/{{$user->foto}}" class="fotoPerfil" alt="Não foi possível carregar sua foto" style="height: 15rem;width: 15rem;">
+                <label tabIndex="0" for="picture__input" type="file" class="picture" style="padding:0px!important;margin-top: 1rem;">
+                    <img src="/img/usuarios/{{$user->foto}}" class="fotoPerfil" alt="Não foi possível carregar sua foto" style="height: 10rem;width: 10rem;">
                 </label>
                 @else
-                <label tabIndex="0" for="picture__input" type="file" class="picture" style="background: rgb(219, 221, 223);border-radius:100%">
-                    <img src="/img/user.png" class="fotoPerfil" style="height: 15rem;width: 15rem;"></img>
+                <label tabIndex="0" for="picture__input" type="file" class="picture" style="background: rgb(219, 221, 223);border-radius:100%;">
+                    <img src="/img/user.png" class="fotoPerfil" style="height: 10rem;width: 10rem;"></img>
                 </label>
                 @endif
-                <strong>{{$user->name}}</strong>
-                <a class="btn btn-primary mb-3" href="/editarUsuario/{{$user->id}}">Editar</a>
+                <strong style="color: #0fa0e9;">{{$user->name}}</strong>
+                <strong style="color: #0fa0e9;">Seus eventos totalizam: {{count($events)}}</strong>
+                <strong style="color: #0fa0e9;">Suas participações totalizam: {{count($eventasparticipant)}}</strong>
+                <a class="btn btn-primary mb-3" style="height: fit-content;" href="/editarUsuario/{{$user->id}}">Editar</a>
             </div>
-
-            <div class="col-md-10 offset-md-1 dashbord-events-container">
-                @if(count($events)>0)
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Participantes</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($events as $event)
-                        <tr>
-                            <th scope="row">{{$event->id}}</th>
-                            <th scope="row"><a href="/event/{{$event->id}}">{{$event->nomeEvento}}</a></th>
-                            <th scope="row">{{count($event->users)}}</th>
-                            @if(!$event->finalizada)
-                            <th scope="row">
-                                <a href="/event/edit/{{$event->id}}">Editar</a> |
-                                <a class="btn btn-info edit-btn" href="/event/{{$event->id}}">
-                                    <form action="/event/{{$event->id}}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger delete-btn">Deletar</button>
-                                    </form>
-                                </a> |
-                                <a href="/event/end/{{$event->id}}">Finalizar</a>
-                            </th>
-                            @else
-                            <th>Evento Finalizado</th>
-                        </tr>
+            <div style="display: flex;flex-direction: column;width: 75%;padding-left: 1rem;margin-top: 10%;align-items: center;">
+                <div style="display: flex;width: 92%;height: 45%;">
+                    <div style="width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
+                        @if(count($events)>0)
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">CADEIRA</th>
+                                    <th scope="col">BEBIDA</th>
+                                    <th scope="col">BRINDE</th>
+                                    <th scope="col">COMIDA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             <tr>
+                                    <th scope="row">0</th>
+                                    <th scope="row">0</th>
+                                    <th scope="row">0</th>
+                                    <th scope="row">0</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        @else
+                        <p>Você ainda não criou nenhum evento. <a href="/create">Criar evento</a></p>
                         @endif
-                        @endforeach
-                    </tbody>
-                </table>
-                @else
-                <p>Você ainda não criou nenhum evento. <a href="/create">Criar evento</a></p>
-                @endif
-
-                @if (count($eventasparticipant)>0)
-                <p>Suas participações</p>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Participantes</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($eventasparticipant as $participant)
-                        <tr>
-                            <th scope="row">{{$participant->id}}</th>
-                            <th scope="row"><a href="/event/{{$participant->id}}">{{$participant->nomeEvento}}</a></th>
-                            <th scope="row">{{count($participant->users)}}</th>
-                            <th scope="row">
-                                <form action="/event/removeJoin/{{$participant->id}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit">Sair</button>
-                                </form>
-                            </th>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                @else
-                <p>Você ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
-                @endif
+                    </div>
+                    <div style="margin-left: 0.09rem;width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
+                        @if (count($eventasparticipant)>0)
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">CONCLUIDO</th>
+                                    <th scope="col">EM ANDAMANETO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">0</th>
+                                    <th scope="row">0</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        @else
+                        <p>Você ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
+                        @endif
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div style="width: 50% !important;">
+                        @if(count($events)>0)
+                        <h1 class="m-auto" style="padding-bottom: 3rem;font-size: 3.8vh;text-align: center;">Meus eventos</h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">cod</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Participantes</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($events as $event)
+                                <tr>
+                                    <th scope="row">{{$event->id}}</th>
+                                    <th scope="row"><a href="/event/{{$event->id}}">{{$event->nomeEvento}}</a></th>
+                                    <th scope="row">{{count($event->users)}}</th>
+                                    @if(!$event->finalizada)
+                                    <th scope="row">
+                                        <a href="/event/edit/{{$event->id}}">Editar</a> |
+                                        <a class="btn btn-info edit-btn" href="/event/{{$event->id}}">
+                                            <form action="/event/{{$event->id}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger delete-btn" style="font-size: xx-small;">Deletar</button>
+                                            </form>
+                                        </a> |
+                                        <a href="/event/end/{{$event->id}}">Finalizar</a>
+                                    </th>
+                                    @else
+                                    <th>Evento Finalizado</th>
+                                </tr>
+                                @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @else
+                        <p>Você ainda não criou nenhum evento. <a href="/create">Criar evento</a></p>
+                        @endif
+                    </div>
+                    <div style="margin-left: 0.09rem;width: 50% !important;">
+                        @if (count($eventasparticipant)>0)
+                        <h1 class="m-auto" style="padding-bottom: 3rem;font-size: 3.8vh;text-align: center;">Suas participações</h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">cod</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Participantes</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($eventasparticipant as $participant)
+                                <tr>
+                                    <th scope="row">{{$participant->id}}</th>
+                                    <th scope="row"><a href="/event/{{$participant->id}}">{{$participant->nomeEvento}}</a></th>
+                                    <th scope="row">{{count($participant->users)}}</th>
+                                    <th scope="row">
+                                        <form action="/event/removeJoin/{{$participant->id}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger delete-btn" style="font-size: xx-small;">Sair</button>
+                                        </form>
+                                    </th>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @else
+                        <p>Você ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
