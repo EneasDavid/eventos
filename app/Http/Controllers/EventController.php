@@ -179,6 +179,7 @@ class EventController extends Controller
     {
         return view('create');
     }
+
     public function store(Request $request)
     {
         //Criadno a entidade
@@ -230,20 +231,21 @@ class EventController extends Controller
         //redirecionando a página
         return redirect('/')->with('msg', 'Evento criado');
     }
+
     public function event()
     {
         $user = auth()->user();
         $busca = request('search');
         $localizacaoAtual = request('s');
         $hoje = date('Y/m/d');
-        $now= date('H:i:s', time());
+        $now = date('H:i:s', time());
         if ($busca) {
             $Events = Event::where([
                 ['nomeEvento', 'like', '%' . $busca . '%']
             ])->whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->get();
         } else {
             if (!empty($localizacaoAtual)) {
-                $Events = Event::whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->where('time','>=', $now)->where('uf', 'like', $localizacaoAtual)->get();
+                $Events = Event::whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->where('time', '>=', $now)->where('uf', 'like', $localizacaoAtual)->get();
                 if (count($Events) < 1) {
                     $Events = Event::whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->get();
                     return redirect('/')->with('msg', 'parece que não há eventos na sua localidade');
@@ -286,7 +288,7 @@ class EventController extends Controller
         //EventOwner = dono do evento
         $items = json_decode($event->items, true) ?? [];
 
-        return view('show', ['semanaD' => $semanaDia, 'usuario' => $user, 'event' => $event, 'eventOwner' => $eventOwner, 'JaParticipa' => $existeUserJoin, 'items'=> $items]);
+        return view('show', ['semanaD' => $semanaDia, 'usuario' => $user, 'event' => $event, 'eventOwner' => $eventOwner, 'JaParticipa' => $existeUserJoin, 'items' => $items]);
     }
 
     public function dashboard()
@@ -294,19 +296,42 @@ class EventController extends Controller
         $user = auth()->user();
         $events = $user->events;
         $eventAsParticipant = $user->eventAsParticipant;
+        $items = ['palco' => 0, 'cadeiras' => 0, 'bebidas' => 0, 'brindes' => 0];
+        $situacaoEvento = ['emAndamento'=>0,'concluido'=>0];
         foreach ($events as $eventoDaVez) {
-            echo $eventoDaVez->item;
-            /*foreach($eventoDaVez->item as $itemDaVez){
-                    if($itemDaVez->quantidade==0){
-                        echo $itemDaVez;
-                    }
-                }*/
-            return view('dashboard', [
-                'user' => $user,
-                'events' => $events,
-                'eventasparticipant' => $eventAsParticipant,
-            ]);
+            $arrayItem = json_decode($eventoDaVez->items, true);
+            if ($arrayItem !== null) {
+                foreach ($arrayItem as $itemDaVez) {
+                    /*switch ($itemDaVez) {
+                    case 'palco':
+                        $items['palco'] += 1;
+                        break;
+                    case 'bebidas':
+                        $items['bebidas'] += 1;
+                        break;
+                    case 'brindes':
+                        $items['brindes'] += 1;
+                        break;
+                    case 'cadeiras':
+                        $items['cadeiras'] += 1;
+                        break;
+                    }*/
+                    $items[$itemDaVez] += 1;
+                }
+            }
+            if($eventoDaVez->finalizada){
+                $situacaoEvento['concluido'] += 1;
+            }else{
+                $situacaoEvento['emAndamento'] += 1;
+            }
         }
+        return view('dashboard', [
+            'user' => $user,
+            'events' => $events,
+            'eventasparticipant' => $eventAsParticipant,
+            'items' => $items,
+            'situacaoEvento' => $situacaoEvento,
+        ]);
     }
 
     public function deletar($id)
@@ -354,12 +379,12 @@ class EventController extends Controller
         $date = $request->all();
 
         $caminhoFotoEvento = public_path('img/events/');
-        $fotoAtual=Event::findOrFail($request->id)->imagem;
+        $fotoAtual = Event::findOrFail($request->id)->imagem;
 
         //Upload de imagem
         if ($request->hasfile('imagem') && $request->file('imagem')->isValid()) {
-            if($fotoAtual && File::exists($caminhoFotoEvento.$fotoAtual)){
-                File::delete($caminhoFotoEvento.$fotoAtual);
+            if ($fotoAtual && File::exists($caminhoFotoEvento . $fotoAtual)) {
+                File::delete($caminhoFotoEvento . $fotoAtual);
             }
             $requestImagem = $request->imagem;
             //Pega a imagem

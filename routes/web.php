@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/logout', [EventController::class, 'logout']);
     //Logout
     //Editar usuario
-        Route::get('/editarUsuario/{id}', [EventController::class, 'editarUsuario']); 
+        Route::get('/editarUsuario/{id}', [EventController::class, 'editarUsuario']);
         Route::put('/update', [EventController::class, 'editarUsuarioForms']);
     //Editar  usuario
     //Listagem e informação de evento
