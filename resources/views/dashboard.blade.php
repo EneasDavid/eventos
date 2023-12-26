@@ -58,130 +58,210 @@
                 <a class="btn btn-primary mb-3" style="height: fit-content;" href="/editarUsuario/{{$user->id}}">Editar</a>
             </div>
             <div style="display: flex;flex-direction: column;width: 75%;padding-left: 1rem;margin-top: 10%;align-items: center;">
-                <div style="display: flex;width: 92%;height: 45%;">
+                <div style="display: flex;width: 92%;">
                     <div style="width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
                         @if(count($events)>0)
                         <table class="table">
-                            <thead>
+                            <thead style="border-style:none !important">
                                 <tr>
-                                    <th scope="col">CADEIRA</th>
-                                    <th scope="col">BEBIDA</th>
-                                    <th scope="col">BRINDE</th>
-                                    <th scope="col">PALCO</th>
+                                    <th scope="col" style="border-style:none !important">CADEIRA</th>
+                                    <th scope="col" style="border-style:none !important">BEBIDA</th>
+                                    <th scope="col" style="border-style:none !important">BRINDE</th>
+                                    <th scope="col" style="border-style:none !important">PALCO</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                             <tr>
-                                    <th scope="row">{{$items['cadeiras']}}</th>
-                                    <th scope="row">{{$items['bebidas']}}</th>
-                                    <th scope="row">{{$items['brindes']}}</th>
-                                    <th scope="row">{{$items['palco']}}</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                        @else
-                        <p>Você ainda não criou nenhum evento. <a href="/create">Criar evento</a></p>
-                        @endif
-                    </div>
-                    <div style="margin-left: 0.09rem;width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
-                        @if (count($eventasparticipant)>0)
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">CONCLUIDO</th>
-                                    <th scope="col">EM ANDAMANETO</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">{{$situacaoEvento['concluido']}}</th>
-                                    <th scope="row">{{$situacaoEvento['emAndamento']}}</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                        @else
-                        <p>Você ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
-                        @endif
+                            <tbody style="border-style:none !important">
+                                <tr style="background: none !important">
+                                    <td style="border-style:none !important">
+                                        <div style="display: grid;justify-items: center;justify-content: space-around;">
+                                            <div class="slider-wrapper">
+                                                <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
+                                                    @php
+                                                    $porcentagem=($items['cadeiras']/$maximoItem)*100;
+                                                    echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['cadeiras'].'" step="1">'
+                                                    @endphp
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['cadeiras'])}}</h7>
+                                    </td>
                     </div>
                 </div>
-                <div style="display: flex;">
-                    <div style="width: 50% !important;">
-                        @if(count($events)>0)
-                        <h1 class="m-auto" style="padding-bottom: 3rem;font-size: 3.8vh;text-align: center;">Meus eventos</h1>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">cod</th>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Participantes</th>
-                                    <th scope="col">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($events as $event)
-                                <tr>
-                                    <th scope="row">{{$event->id}}</th>
-                                    <th scope="row"><a href="/event/{{$event->id}}">{{$event->nomeEvento}}</a></th>
-                                    <th scope="row">{{count($event->users)}}</th>
-                                    @if(!$event->finalizada)
-                                    <th scope="row">
-                                        <a href="/event/edit/{{$event->id}}">Editar</a> |
-                                        <a class="btn btn-info edit-btn" href="/event/{{$event->id}}">
-                                            <form action="/event/{{$event->id}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger delete-btn" style="font-size: xx-small;">Deletar</button>
-                                            </form>
-                                        </a> |
-                                        <a href="/event/end/{{$event->id}}">Finalizar</a>
-                                    </th>
-                                    @else
-                                    <th>Evento Finalizado</th>
-                                </tr>
-                                @endif
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                        <p>Você ainda não criou nenhum evento. <a href="/create">Criar evento</a></p>
-                        @endif
-                    </div>
-                    <div style="margin-left: 0.09rem;width: 50% !important;">
-                        @if (count($eventasparticipant)>0)
-                        <h1 class="m-auto" style="padding-bottom: 3rem;font-size: 3.8vh;text-align: center;">Suas participações</h1>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">cod</th>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Participantes</th>
-                                    <th scope="col">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($eventasparticipant as $participant)
-                                <tr>
-                                    <th scope="row">{{$participant->id}}</th>
-                                    <th scope="row"><a href="/event/{{$participant->id}}">{{$participant->nomeEvento}}</a></th>
-                                    <th scope="row">{{count($participant->users)}}</th>
-                                    <th scope="row">
-                                        <form action="/event/removeJoin/{{$participant->id}}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger delete-btn" style="font-size: xx-small;">Sair</button>
-                                        </form>
-                                    </th>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                        <p>Você ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
-                        @endif
-                    </div>
-                </div>
+                <td style="border-style:none !important">
+                    <div style="display: grid;justify-items: center;justify-content: space-around;">
+                        <div class="slider-wrapper">
+                            <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
+                                @php
+                                $porcentagem=($items['bebidas']/$maximoItem)*100;
+                                echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['bebidas'].'" step="1">'
+                                @endphp
+                            </div>
+                        </div>
+                        <div>
+                            <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['bebidas'])}}</h7>
+                </td>
             </div>
         </div>
+        <td style="border-style:none !important">
+            <div style="display: grid;justify-items: center;justify-content: space-around;">
+                <div class="slider-wrapper">
+                    <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
+                        @php
+                        $porcentagem=($items['brindes']/$maximoItem)*100;
+                        echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['brindes'].'" step="1">'
+                        @endphp
+                    </div>
+                </div>
+                <div>
+                    <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['brindes'])}}</h7>
+        </td>
+    </div>
+    </div>
+    <td style="border-style:none !important">
+        <div style="display: grid;justify-items: center;justify-content: space-around;">
+            <div class="slider-wrapper">
+                <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
+                    @php
+                    $porcentagem=($items['palco']/$maximoItem)*100;
+                    echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoItem.'" value="'.$items['palco'].'" step="1">'
+                    @endphp
+                </div>
+            </div>
+            <div>
+                <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$items['palco'])}}</h7>
+    </td>
+    </div>
+    </div>
+    </tr>
+    </tbody>
+    </table>
+    @else
+    <p>Você ainda não criou nenhum evento. <a href="/create">Criar evento</a></p>
+    @endif
+    </div>
+    <div style="margin-left: 0.09rem;width: 50% !important;border: 0.08rem solid #fffefe;border-radius: 3rem;">
+        @if (count($eventasparticipant)>0)
+        <table class="table" style="border-style:none !important">
+            <thead style="border-style:none !important">
+                <tr>
+                    <th scope="col" style="border-style:none !important">CONCLUIDO</th>
+                    <th scope="col" style="border-style:none !important">EM ANDAMANETO</th>
+                </tr>
+            </thead>
+            <tbody style="border-style:none !important">
+                <tr style="background: none !important">
+                    <td style="border-style:none !important">
+                        <div style="display: grid;justify-items: center;justify-content: space-around;">
+                            <div class="slider-wrapper">
+                                <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
+                                    @php
+                                    $porcentagem=($situacaoEvento['concluido']/$maximoEvento)*100;
+                                    echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoEvento.'" value="'.$situacaoEvento['concluido'].'" step="1">'
+                                    @endphp
+                                </div>
+                            </div>
+                            <div>
+                                <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$situacaoEvento['concluido'])}}</h7>
+                    </td>
+                    <td style="border-style:none !important">
+                        <div style="display: grid;justify-items: center;justify-content: space-around;">
+                            <div class="slider-wrapper">
+                                <div class="progress mt-1 " style="transform: rotate(180deg);height: inherit;">
+                                    @php
+                                    $porcentagem=($situacaoEvento['emAndamento']/$maximoEvento)*100;
+                                    echo '<input style="background-color:darkgray;height:'.$porcentagem.'%" type="range" min="0" max="'.$maximoEvento.'" value="'.$situacaoEvento['emAndamento'].'" step="1">'
+                                    @endphp
+                                </div>
+                            </div>
+                            <div>
+                                <h7 style="display: grid;justify-items: center;">{{str_replace(".",",",$situacaoEvento['emAndamento'])}}</h7>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @else
+        <p>Você ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
+        @endif
+    </div>
+    </div>
+    <div style="display: flex;">
+        <div style="width: 50% !important;">
+            @if(count($events)>0)
+            <h1 class="m-auto" style="padding-bottom: 3rem;font-size: 3.8vh;text-align: center;">Meus eventos</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">cod</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Participantes</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($events as $event)
+                    <tr>
+                        <th scope="row">{{$event->id}}</th>
+                        <th scope="row"><a href="/event/{{$event->id}}">{{$event->nomeEvento}}</a></th>
+                        <th scope="row">{{count($event->users)}}</th>
+                        @if(!$event->finalizada)
+                        <th scope="row">
+                            <a href="/event/edit/{{$event->id}}">Editar</a> |
+                            <a class="btn btn-info edit-btn" href="/event/{{$event->id}}">
+                                <form action="/event/{{$event->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger delete-btn" style="font-size: xx-small;">Deletar</button>
+                                </form>
+                            </a> |
+                            <a href="/event/end/{{$event->id}}">Finalizar</a>
+                        </th>
+                        @else
+                        <th>Evento Finalizado</th>
+                    </tr>
+                    @endif
+                    @endforeach
+                </tbody>
+            </table>
+            @else
+            <p>Você ainda não criou nenhum evento. <a href="/create">Criar evento</a></p>
+            @endif
+        </div>
+        <div style="margin-left: 0.09rem;width: 50% !important;">
+            @if (count($eventasparticipant)>0)
+            <h1 class="m-auto" style="padding-bottom: 3rem;font-size: 3.8vh;text-align: center;">Suas participações</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">cod</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Participantes</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($eventasparticipant as $participant)
+                    <tr>
+                        <th scope="row">{{$participant->id}}</th>
+                        <th scope="row"><a href="/event/{{$participant->id}}">{{$participant->nomeEvento}}</a></th>
+                        <th scope="row">{{count($participant->users)}}</th>
+                        <th scope="row">
+                            <form action="/event/removeJoin/{{$participant->id}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger delete-btn" style="font-size: xx-small;">Sair</button>
+                            </form>
+                        </th>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @else
+            <p>Você ainda não participa de eventos. <a href="/">Veja alguns eventos</a></p>
+            @endif
+        </div>
+    </div>
+    </div>
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

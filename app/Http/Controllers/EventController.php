@@ -337,7 +337,9 @@ class EventController extends Controller
             'events' => $events,
             'eventasparticipant' => $eventAsParticipant,
             'items' => $items,
+            'maximoItem' => max($items),
             'situacaoEvento' => $situacaoEvento,
+            'maximoEvento' => max($situacaoEvento),
         ]);
     }
 
