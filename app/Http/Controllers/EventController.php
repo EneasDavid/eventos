@@ -239,23 +239,37 @@ class EventController extends Controller
         $localizacaoAtual = request('s');
         $hoje = date('Y/m/d');
         $now = date('H:i:s', time());
+
+        $perPage = 9;
+
         if ($busca) {
             $Events = Event::where([
                 ['nomeEvento', 'like', '%' . $busca . '%']
-            ])->whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->get();
+            ])->whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->paginate($perPage);
         } else {
             if (!empty($localizacaoAtual)) {
-                $Events = Event::whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->where('time', '>=', $now)->where('uf', 'like', $localizacaoAtual)->get();
-                if (count($Events) < 1) {
-                    $Events = Event::whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->get();
+                $Events = Event::whereNotIn('finalizada', [1])
+                    ->where('date', '>=', $hoje)
+                    ->where('time', '>=', $now)
+                    ->where('uf', 'like', $localizacaoAtual)
+                    ->paginate($perPage);
+
+                if ($Events->isEmpty()) {
+                    $Events = Event::whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->paginate($perPage);
                     return redirect('/')->with('msg', 'parece que não há eventos na sua localidade');
                 }
             } else {
-                $Events = Event::whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->get();
+                $Events = Event::whereNotIn('finalizada', [1])->where('date', '>=', $hoje)->paginate($perPage);
             }
         }
-        return view('events', ['user' => $user, 'events' => $Events, 'busca' => $busca]);
+
+        return view('events', [
+            'user' => $user,
+            'events' => $Events,
+            'busca' => $busca,
+        ]);
     }
+
 
     public function show($id)
     {

@@ -14,7 +14,7 @@
 </head>
 
 
-<body>
+<body onload="requestGeolocationPermission()">
     <div>
         <!--NAVBAR-->
         <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
@@ -240,20 +240,11 @@
         <a class="btn btn-primary btn-lg" onclick="chamaPopUp()">Nenhum evento disponivel.</br>Click aqui para criar um!</a>
     </div>
     @elseif (count($events) == 0)
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     <div class="col-md-12 centered my-auto" style="width: max-content;margin-right:10%;margin-left:10%">
         <a type="submit" href="/create" class="btn btn-primary btn-lg">Nenhum evento disponivel.</br>Click aqui para criar um!</a>
     </div>
     @else
-    <div style="margin-right:10%;margin-left: 10%;display: flex;flex-wrap: wrap;justify-content: flex-start;">
+    <div style="margin-right:10%;margin-left: 10%;display: flex;flex-wrap: wrap;justify-content: flex-start;height: 80vh;">
         @foreach ($events as $event)
         <a style="height: 190px;width: 32%;" href="/event/{{$event->id}}">
             <div class="container marketing" style="height: 190px;width: 300px;">
@@ -274,10 +265,9 @@
         @if ($busca)
         <a style="position: static;height: 60px;" href="/">Ver todos os eventos</a>
         @endif
+        {{$events->links()}}
     </div>
     @endif
-    <div id="location-div"></div>
-
   <!--SCRIPTS-->
   <script src="js/jquery.js"></script>
   <script src="js/script.js"></script>
