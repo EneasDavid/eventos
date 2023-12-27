@@ -14,7 +14,7 @@
 </head>
 
 
-<body onload="requestGeolocationPermission()">
+<body>
     <div>
         <!--NAVBAR-->
         <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
@@ -49,7 +49,7 @@
                             </li>
                         @endguest
                         <li class="nav-item">
-                            <button class="nav-link semEstilo" id="get-location">POR PERTO</button>
+                            <button class="nav-link semEstilo" id="getLocationButton">POR PERTO</button>
                         </li>
                         @auth
                         <li class="nav-item">

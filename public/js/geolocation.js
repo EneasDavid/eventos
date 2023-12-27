@@ -1,55 +1,70 @@
-let h2 = document.getElementById('location-info');
+function initializeLocationGetter(elementId) {
+    const element = document.getElementById(elementId);
+    let watchID;
 
-function success(pos) {
-    const latitude = pos.coords.latitude;
-    const longitude = pos.coords.longitude;
+    async function success(pos) {
+        const latitude = pos.coords.latitude;
+        const longitude = pos.coords.longitude;
 
-    // Verificar se o URL já possui uma UF
-    const urlParams = new URLSearchParams(window.location.search);
-    const existingUF = urlParams.get('s');
+        try {
+            const ufElement = element.querySelector('.uf-info');
 
-    if (existingUF) {
-        // Se já existe uma UF, exibir apenas a mensagem
-        h2.textContent = `UF: ${existingUF}`;
-    } else {
-        // Se não existe uma UF, chamar a função que converte as coordenadas para UF
-        getUFFromCoordinates(latitude, longitude)
-            .then(uf => {
-                h2.textContent = `UF: ${uf}`;
-            })
-            .catch(error => {
-                console.error(error);
-                h2.textContent = "Erro ao obter a localização.";
+            if (hasLocationBeenConsulted()) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const existingUF = urlParams.get('s');
+                ufElement.textContent = `UF: ${existingUF}`;
+            } else {
+                const uf = await getUFFromCoordinates(latitude, longitude);
+                ufElement.textContent = `UF: ${uf}`;
+                // Marcar a localização como consultada configurando um cookie
+                document.cookie = 'locationConsulted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+            }
+        } catch (error) {
+            console.error("Erro ao obter a localização:", error);
+            element.textContent = "Erro ao obter a localização.";
+        }
+    }
+
+    function error(err) {
+        console.error(err);
+        element.textContent = "Erro ao obter a localização.";
+    }
+
+    element.addEventListener('click', async function () {
+        if (watchID) {
+            navigator.geolocation.clearWatch(watchID);
+        }
+
+        try {
+            const pos = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject, {
+                    enableHighAccuracy: true,
+                    timeout: 5000
+                });
             });
+
+            success(pos);
+        } catch (error) {
+            error(error);
+        }
+    });
+
+    async function getUFFromCoordinates(latitude, longitude) {
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+            const data = await response.json();
+            const uf = convertStateToUF(data.address.state);
+
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('s', uf);
+            window.location.search = urlParams;
+
+            return uf;
+        } catch (error) {
+            console.error("Erro ao obter UF:", error);
+            throw error;
+        }
     }
-}
-
-function error(err) {
-    console.error(err);
-    h2.textContent = "Erro ao obter a localização.";
-}
-
-async function getUFFromCoordinates(latitude, longitude) {
-    try {
-        // Utilizando a API do OpenStreetMap (Nominatim) para obter informações de localização
-        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
-        const data = await response.json();
-
-        // Extrair a UF (state) dos dados obtidos
-        const uf = convertStateToUF(data.address.state);
-
-        // Atualizar a URL com a UF
-        const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('s', uf);
-        window.location.search = urlParams;
-
-        return uf;
-    } catch (error) {
-        console.error("Erro ao obter UF:", error);
-        throw error;
-    }
-}
-
 function convertStateToUF(state) {
     // Lógica de conversão de estado para UF
     switch (state) {
@@ -84,7 +99,10 @@ function convertStateToUF(state) {
     }
 }
 
-var watchID = navigator.geolocation.watchPosition(success, error, {
-    enableHighAccuracy: true,
-    timeout: 5000
-});
+function hasLocationBeenConsulted() {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('s',$uf);
+    window.location.search = urlParams
+}
+
+const locationGetter = initializeLocationGetter('getLocationButton');
