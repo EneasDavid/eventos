@@ -1,8 +1,12 @@
 html{
   height: -webkit-fill-available;
 }
-body{
-  background-image: radial-gradient(circle at 14.64% -11.24%, #ade5ff 0, #7dcefb 25%, #3cb5f2 50%, #009ce9 75%) !important;
+
+body {
+    margin: 0;
+    overflow-x: hidden; /* Impede a rolagem lateral */
+    background-color: #fff; /* Define a cor de fundo como branco */
+
 }
 .logout:hover{
   color:#e18f8f !important;

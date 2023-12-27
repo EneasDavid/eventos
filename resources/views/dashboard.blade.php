@@ -42,7 +42,7 @@
         @endif
 
         <div style="display: flex; flex-direction: row; height:inherit;margin-top: 1rem;">
-            <div style="display: grid;align-items: center;justify-items: center;width: min-content;background: white;padding: 1.3rem;border-radius: 3rem;">
+            <div style="display: grid;align-items: center;justify-items: center;width: min-content;background: #007cc1;padding: 1.3rem;border-radius: 3rem;">
                 @if(!empty($user->foto))
                 <label tabIndex="0" for="picture__input" type="file" class="picture" style="padding:0px!important;margin-top: 1rem;">
                     <img src="/img/usuarios/{{$user->foto}}" class="fotoPerfil" alt="Não foi possível carregar sua foto" style="height: 10rem;width: 10rem;">
@@ -52,9 +52,9 @@
                     <img src="/img/user.png" class="fotoPerfil" style="height: 10rem;width: 10rem;"></img>
                 </label>
                 @endif
-                <strong style="color: #0fa0e9;">{{$user->name}}</strong>
-                <strong style="color: #0fa0e9;">Seus eventos totalizam: {{count($events)}}</strong>
-                <strong style="color: #0fa0e9;">Suas participações totalizam: {{count($eventasparticipant)}}</strong>
+                <strong>{{$user->name}}</strong>
+                <strong>Seus eventos totalizam: {{count($events)}}</strong>
+                <strong>Suas participações totalizam: {{count($eventasparticipant)}}</strong>
                 <a class="btn btn-primary mb-3" style="height: fit-content;" href="/editarUsuario/{{$user->id}}">Editar</a>
             </div>
             <div style="display: flex;flex-direction: column;width: 75%;padding-left: 1rem;margin-top: 10%;align-items: center;">

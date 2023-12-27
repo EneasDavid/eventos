@@ -13,13 +13,15 @@
     <!--CSS -->
 </head>
 
+
 <body>
+    <div>
         <!--NAVBAR-->
         <nav class="navbar-dark bg-dark navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand logo" href="/">HostEvent</a>
             <form action="/" method="get" class="form-inline my-2 my-lg-0">
               <input name="search" class="form-control mr-sm-2" type="text" aria-label="Search">
-            </form>  
+            </form>
             <!--SÓ APARECE NO CELULAR-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -58,7 +60,7 @@
                                 </form>
                             </li>
                         @endauth
-            </ul>       
+            </ul>
          </div>
         </nav>
     <div class="modal pagina" id="modalExemplo" tabindex="-1" role="dialog" style="margin: 0!important;" aria-labelledby="exampleModalLabel" aria-hidden="true" popUp-cadastrar-tag>

@@ -134,11 +134,11 @@ class EventController extends Controller
         $user = User::findOrFail($request->id);
         $filePath = public_path('img/usuarios/');
 
-        $fotoAtual = $user->foto;
+        $imgFoto = $user->foto;
 
         if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
-            if ($fotoAtual && File::exists($filePath . $fotoAtual)) {
-                File::delete($filePath . $fotoAtual);
+            if ($imgFoto && File::exists($filePath . $imgFoto)) {
+                File::delete($filePath . $imgFoto);
             }
             $requestImagem = $request->foto;
             $extension = $requestImagem->extension();
