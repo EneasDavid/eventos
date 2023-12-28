@@ -101,8 +101,7 @@ function convertStateToUF(state) {
 
 function hasLocationBeenConsulted() {
     const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set('s',$uf);
-    window.location.search = urlParams
+    return urlParams.has('s');
 }
-
+}
 const locationGetter = initializeLocationGetter('getLocationButton');
